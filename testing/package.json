@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "test": "jest"
+    },
+    "jest": {
+        "verbose": true
+    },
+    "devDependencies": {
+        "jest-environment-jsdom": "^29.7.0"
+    }
+}
