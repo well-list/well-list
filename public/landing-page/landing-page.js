@@ -17,7 +17,7 @@ function handleLogin() {
 }
 
 // TODO: relevant to account encryption/validation
-function handleAccountCreated() {
+function handleAccountCreation() {
     const username = document.getElementById('username-input').value
     const password = document.getElementById('password-input').value
 
@@ -122,7 +122,7 @@ function loadCreateAccount() {
     const submitControlsContainer = createElement('div', ['class'], ['controls'], 'Create a new account:');
     const createAccountButton = createElement('div', ['id'], ['create-account-button'], 'Submit.');
     createAccountButton.addEventListener('click', () => {
-        handleAccountCreated();
+        handleAccountCreation();
     });
     submitControlsContainer.appendChild(createAccountButton);
     container.appendChild(submitControlsContainer);

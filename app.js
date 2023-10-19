@@ -9,6 +9,7 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 const app = express();
 app.use(express.json());
+app.use(express.static('public'))
 
 /* Test Input to Database */
 const seedDatabase = require('./Test');
