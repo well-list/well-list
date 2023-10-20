@@ -4,7 +4,13 @@
   "description": "Web application aimed to make personal health/wellness tasks more engaging",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true
+  },
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.7.0"
   },
   "repository": {
     "type": "git",
