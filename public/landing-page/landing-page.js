@@ -1,9 +1,12 @@
 loadLogin();
 
-// TODO: relevant to account encryption/validation
-function handleLogin() {
-    const username = document.getElementById('username-input').value
-    const password = document.getElementById('password-input').value
+/* TODO: Get rid of the status errors with in try catch
+    when function is completely implemented */
+async function handleLogin() {
+    const usernameInput = document.getElementById('username-input');
+    const passwordInput = document.getElementById('password-input');
+    const username = usernameInput.value;
+    const password = passwordInput.value; 
 
     if (username.length === 0) {
         setMessageText('Please provide a username');
@@ -12,14 +15,43 @@ function handleLogin() {
         setMessageText('Please provide a password');
     }
     else {
-        setMessageText(`Attempted login with username: [${username}] and password: [${password}].`);
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    username: username,
+                    password: password,
+                }),
+            });
+
+            if (response.redirected) {
+                setMessageText(`Login successful!`);
+            }
+            else {
+                /* This error is caused by incorrect username or password */
+                setMessageText(`Failed to log in. Please try again. Status 400`);
+            }
+
+            usernameInput.value = '';
+            passwordInput.value = '';
+        }
+        catch (error) {
+            /* This error means the route is broken */
+            setMessageText(`Failed to log in. Please try again. Route broken`)
+        }
     }
 }
 
-// TODO: relevant to account encryption/validation
-function handleAccountCreation() {
-    const username = document.getElementById('username-input').value
-    const password = document.getElementById('password-input').value
+/* TODO: Get rid of the status errors with in try catch
+    when function is completely implemented */
+async function handleAccountCreation() {
+    const usernameInput = document.getElementById('username-input');
+    const passwordInput = document.getElementById('password-input');
+    const username = usernameInput.value;
+    const password = passwordInput.value; 
 
     if (username.length === 0) {
         setMessageText('Please provide a username');
@@ -28,7 +60,35 @@ function handleAccountCreation() {
         setMessageText('Please provide a password');
     }
     else {
-        setMessageText(`Attempted account creation with username: [${username}] and password: [${password}].`);
+        try {
+            const response = await fetch('/api/createUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
+
+            if (response.status === 200) {
+                setMessageText(`User Account Created. Please Login.`);
+            }
+            else if (response.status === 401) {
+                setMessageText(`Failed to create account. Status 400`);
+            }
+            else {
+                setMessageText(`Failed to create account. Please try again later.`);
+            }
+
+            usernameInput.value = '';
+            passwordInput.value = '';
+            
+        } catch (error) {
+            console.log('Error', error);
+            setMessageText(`Error creating account`);
+        }
     }
 }
 
