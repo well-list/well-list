@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <link rel="stylesheet" type="text/css" href="landing-page/landing-page.css">
+    <script type="module" src="landing-page/landing-page.js" defer></script>
+    <title>Well-List</title>
+</head>
+<body>
+    <main>
+        <menu-paper>
+            <div id="pin" class="login"></div>
+            <div id="content-container">
+                <div id="title"></div>
+                <div id="lined-area"></div>
+            </div>
+            <div id="paper-background">
+                <div id="paper-background-vertical"></div>
+                <div id="paper-background-horizontal"></div>
+            </div>
+        </menu-paper>
+        <well-list-banner>
+            <div id="title">WELL-LIST</div>
+        </well-list-banner>
+        <div id="sticky-notes-container">
+            <sticky-note id="sticky-1" class="account-creation">Create Account</sticky-note>
+            <sticky-note id="sticky-2" class="credits">Credits</sticky-note>
+            <sticky-note id="sticky-3" class="about">About</sticky-note>
+            <sticky-note onclick="document.location='https://github.com/well-list/well-list'" id="code-sticky" class="code">
+                Code
+            </sticky-note>
+        </div>
+        <plant-sticker id="plant-sticker-1" class="default"></plant-sticker>
+        <plant-sticker id="plant-sticker-2" class="default"></plant-sticker>
+        <plant-sticker id="plant-sticker-3" class="default"></plant-sticker>
+    </main>
+    <pinboard-background>
+        <div id="top-left-corner" class="pinboard-corner"></div>
+        <div id="top-right-corner" class="pinboard-corner"></div>
+        <div id="bottom-right-corner" class="pinboard-corner"></div>
+        <div id="bottom-left-corner" class="pinboard-corner"></div>
+        <div id="outline"></div>
+    </pinboard-background>
+</body>
+</html>

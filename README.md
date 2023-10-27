@@ -1,4 +1,4 @@
-# well-list
+# Well-List
 Web application aimed to make personal health/wellness tasks more engaging
 
 # Running Locally
@@ -8,7 +8,9 @@ Run the following command to automatically install the required modules:
 npm install
 ```
 
-To test the database connection and and data creation run:
+To run our web server that also tests the database:
 ```sh
 node app.js
 ```
+
+You can then connect to our server using your web browser at `localhost:3000`
