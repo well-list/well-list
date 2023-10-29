@@ -9,10 +9,10 @@ async function handleLogin() {
     const password = passwordInput.value; 
 
     if (username.length === 0) {
-        setMessageText('Please provide a username');
+        setMessageText('Please provide a username.');
     }
     else if (password.length === 0) {
-        setMessageText('Please provide a password');
+        setMessageText('Please provide a password.');
     }
     else {
         try {
@@ -32,7 +32,7 @@ async function handleLogin() {
             }
             else {
                 /* This error is caused by incorrect username or password */
-                setMessageText(`Failed to log in. Please try again. Status 400`);
+                setMessageText(`Failed to log in. Please try again. Status 400.`);
             }
 
             usernameInput.value = '';
@@ -40,7 +40,7 @@ async function handleLogin() {
         }
         catch (error) {
             /* This error means the route is broken */
-            setMessageText(`Failed to log in. Please try again. Route broken`)
+            setMessageText(`Failed to log in. Please try again. Route broken.`)
         }
     }
 }
@@ -54,10 +54,10 @@ async function handleAccountCreation() {
     const password = passwordInput.value; 
 
     if (username.length === 0) {
-        setMessageText('Please provide a username');
+        setMessageText('Please provide a username.');
     }
     else if (password.length === 0) {
-        setMessageText('Please provide a password');
+        setMessageText('Please provide a password.');
     }
     else {
         try {
@@ -76,7 +76,7 @@ async function handleAccountCreation() {
                 setMessageText(`User Account Created. Please Login.`);
             }
             else if (response.status === 401) {
-                setMessageText(`Failed to create account. Status 400`);
+                setMessageText(`Failed to create account. Status 400.`);
             }
             else {
                 setMessageText(`Failed to create account. Please try again later.`);
@@ -87,7 +87,7 @@ async function handleAccountCreation() {
             
         } catch (error) {
             console.log('Error', error);
-            setMessageText(`Error creating account`);
+            setMessageText(`Error creating account.`);
         }
     }
 }
@@ -132,11 +132,10 @@ function handleStickyClicked(loadStickyFunction, stickyID, stickyClass, stickyIn
 }
 
 function loadLogin() {
-    setMenuTitle('Welcome Back!')
+    setMenuTitle('Login To Account')
     const container = document.getElementById('lined-area');
     container.innerHTML = '';
     // creating and adding elements using menu paper element
-    container.appendChild(createElement('div', ['id'], ['subtitle'], 'Login:'));
     const usernameInputContainer = createElement('div', ['class'], ['username-password-container'], null);
     usernameInputContainer.appendChild(createElement('div', ['id'], ['label'], 'Username:'));
     usernameInputContainer.appendChild(createElement('input', ['id', 'type', 'for'], ['username-input', 'text', 'username'], 'Username:'));
@@ -152,13 +151,6 @@ function loadLogin() {
     });
     submitControlsContainer.appendChild(loginButton);
     container.appendChild(submitControlsContainer);
-    const createAccountControlsContainer = createElement('div', ['class'], ['controls'], 'Create a new account:');
-    const createAccountButton = createElement('div', ['id'], ['create-account-button'], 'Create Account.');
-    createAccountButton.addEventListener('click', () => {
-        handleStickyClicked(loadCreateAccount, 1, 'account-creation', 'Create Account');
-    });
-    createAccountControlsContainer.appendChild(createAccountButton);
-    container.appendChild(createAccountControlsContainer);
     const messageContainer = createElement('div', ['id'], ['message-container'], null);
     messageContainer.appendChild(createElement('div', ['id'], ['message-title'], 'Message:'));
     messageContainer.appendChild(createElement('div', ['id'], ['message-text'], 'Please enter your login information. If you do not have an account then please create one.'));
@@ -166,11 +158,10 @@ function loadLogin() {
 }
 
 function loadCreateAccount() {
-    setMenuTitle('Welcome!')
+    setMenuTitle('Create Account')
     const container = document.getElementById('lined-area');
     container.innerHTML = '';
     // creating and adding elements using menu paper element
-    container.appendChild(createElement('div', ['id'], ['subtitle'], 'Create Account:'));
     const usernameInputContainer = createElement('div', ['class'], ['username-password-container'], null);
     usernameInputContainer.appendChild(createElement('div', ['id'], ['label'], 'Username:'));
     usernameInputContainer.appendChild(createElement('input', ['id', 'type', 'for'], ['username-input', 'text', 'username'], 'Username:'));
@@ -186,13 +177,6 @@ function loadCreateAccount() {
     });
     submitControlsContainer.appendChild(createAccountButton);
     container.appendChild(submitControlsContainer);
-    const loginControlsContainer = createElement('div', ['class'], ['controls'], 'Login to an existing account:');
-    const loginButton = createElement('div', ['id'], ['login-button'], 'Login.');
-    loginButton.addEventListener('click', () => {
-        handleStickyClicked(loadCreateAccount, 1, 'account-creation', 'Create Account');
-    });
-    loginControlsContainer.appendChild(loginButton);
-    container.appendChild(loginControlsContainer);
     const messageContainer = createElement('div', ['id'], ['message-container'], null);
     messageContainer.appendChild(createElement('div', ['id'], ['message-title'], 'Message:'));
     messageContainer.appendChild(createElement('div', ['id'], ['message-text'], 'Please enter your new account information.'));

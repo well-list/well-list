@@ -1,5 +1,5 @@
 html, body {
-    background-color: #ebba85;
+    background: linear-gradient(40deg, #efc496 0%, #efb577 100%);
 }
 
 @font-face {
@@ -25,4 +25,9 @@ html, body {
 @font-face {
     font-family: YoungSerif;
     src: url(./fonts/YoungSerif-Regular.ttf);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
 }

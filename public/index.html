@@ -10,31 +10,35 @@
 </head>
 <body>
     <main>
-        <menu-paper>
-            <div id="pin" class="login"></div>
-            <div id="content-container">
-                <div id="title"></div>
-                <div id="lined-area"></div>
+        <login-section>
+            <well-list-banner>
+                <div id="banner-title">WELL-LIST</div>
+            </well-list-banner>
+            <menu-paper>
+                <div id="pin" class="login"></div>
+                <div id="content-container">
+                    <div id="title"></div>
+                    <div id="lined-area"></div>
+                </div>
+                <div id="paper-background">
+                    <div id="paper-background-vertical"></div>
+                    <div id="paper-background-horizontal"></div>
+                </div>
+            </menu-paper>
+            <div id="sticky-notes-container">
+                <sticky-note id="sticky-1" class="account-creation">Create Account</sticky-note>
+                <sticky-note id="sticky-2" class="credits">Credits</sticky-note>
+                <sticky-note id="sticky-3" class="about">About</sticky-note>
+                <sticky-note onclick="document.location='https://github.com/well-list/well-list'" id="code-sticky" class="code">
+                    Code
+                </sticky-note>
+                <plant-stickers-container>
+                    <plant-sticker id="plant-sticker-1" class="default"></plant-sticker>
+                    <plant-sticker id="plant-sticker-2" class="default"></plant-sticker>
+                    <plant-sticker id="plant-sticker-3" class="default"></plant-sticker>
+                </plant-stickers-container>
             </div>
-            <div id="paper-background">
-                <div id="paper-background-vertical"></div>
-                <div id="paper-background-horizontal"></div>
-            </div>
-        </menu-paper>
-        <well-list-banner>
-            <div id="title">WELL-LIST</div>
-        </well-list-banner>
-        <div id="sticky-notes-container">
-            <sticky-note id="sticky-1" class="account-creation">Create Account</sticky-note>
-            <sticky-note id="sticky-2" class="credits">Credits</sticky-note>
-            <sticky-note id="sticky-3" class="about">About</sticky-note>
-            <sticky-note onclick="document.location='https://github.com/well-list/well-list'" id="code-sticky" class="code">
-                Code
-            </sticky-note>
-        </div>
-        <plant-sticker id="plant-sticker-1" class="default"></plant-sticker>
-        <plant-sticker id="plant-sticker-2" class="default"></plant-sticker>
-        <plant-sticker id="plant-sticker-3" class="default"></plant-sticker>
+        </login-section>
     </main>
     <pinboard-background>
         <div id="top-left-corner" class="pinboard-corner"></div>
