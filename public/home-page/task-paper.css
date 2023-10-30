@@ -1,4 +1,4 @@
-task-paper-container {
+task-section {
     position: fixed;
     top: 10px;
     left: 20px;
@@ -11,18 +11,18 @@ task-paper-container {
     flex-direction: column;
 }
 
-task-paper-container::-webkit-scrollbar-track {
+task-section::-webkit-scrollbar-track {
     background: #dead78; 
 }
 
 /* Handle */
-task-paper-container::-webkit-scrollbar-thumb {
-    background: #9e6e3a; 
+task-section::-webkit-scrollbar-thumb {
+    background: #505050; 
 }
 
 /* Handle on hover */
-task-paper-container::-webkit-scrollbar-thumb:hover {
-    background: #926330; 
+task-section::-webkit-scrollbar-thumb:hover {
+    background: #272727; 
 }
 
 task-paper {

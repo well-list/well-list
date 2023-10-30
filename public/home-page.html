@@ -6,13 +6,15 @@
     <link rel="stylesheet" type="text/css" href="app.css">
     <link rel="stylesheet" type="text/css" href="home-page/home-page.css">
     <link rel="stylesheet" type="text/css" href="home-page/task-paper.css">
+    <link rel="stylesheet" type="text/css" href="home-page/main-banner.css">
+    <link rel="stylesheet" type="text/css" href="home-page/sticky-notes.css">
     <script type="module" src="home-page/home-page.js" defer></script>
     <title>Well-List</title>
 </head>
 <body>
     <main>
         <home-page-section>
-            <task-paper-container>
+            <task-section>
                 <tasks-banner>
                     <div id="banner-title">Tasks</div>
                 </tasks-banner>
@@ -133,7 +135,21 @@
                     <sticky-note id="copy-sticky">Copy Tasks</sticky-note>
                     <sticky-note id="paste-sticky">Paste Tasks</sticky-note>
                 </sticky-container>
-            </task-paper-container>
+            </task-section>
+            <status-section>
+                <main-banner>
+                    <account-banner>
+                        <div>Well-List</div>
+                        <div>Username</div>
+                        <div>Logout</div>
+                    </account-banner>
+                    <top-half>Wednesday, October 11th, 2023</top-half>
+                    <bottom-half>
+                        <yesterday-button><- Previous Day</yesterday-button>
+                        <tomorrow-button>Next Day -></tomorrow-button>
+                    </bottom-half>
+                </main-banner>
+            </status-section>
         </home-page-section>
     </main>
     <pinboard-background>
