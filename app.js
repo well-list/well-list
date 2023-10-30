@@ -1,17 +1,18 @@
 const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
-const Users = require("./models/User");
-const Tasks = require("./models/Tasks");
+const connectDB = require('./database/config/db');
+const Users = require("./database/models/User");
+const Tasks = require("./database/models/Tasks");
 
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './database/config/config.env' });
 connectDB();
 const app = express();
 app.use(express.json());
+app.use(express.static('public'))
 
 /* Test Input to Database */
-const seedDatabase = require('./Test');
+const seedDatabase = require('./database/Test');
 seedDatabase();
 
 /* Port Stuff */
