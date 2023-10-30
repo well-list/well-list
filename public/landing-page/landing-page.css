@@ -238,7 +238,7 @@ menu-paper #content-container #lined-area {
     margin-left: 20px;
     margin-right: 20px;
     height: calc(98vh - 120px - 6vw);
-    background-image: linear-gradient(0, #dbdbdb 5%, transparent 1%, transparent 74%);
+    background-image: linear-gradient(0, #dbdbdb 6%, transparent 1%, transparent 74%);
     background-size: calc(45vw - 40px) 3vw;
     font-size: 1.5vw;
     line-height: 3vw;
@@ -330,7 +330,9 @@ menu-paper #pin {
     height: 25px;
     position: absolute;
     z-index: 1;
+    top: 5px;
     left: calc(22.5vw - 15px);
+    display: none;
 }
 
 menu-paper #pin.login {
@@ -377,63 +379,6 @@ menu-paper #paper-background #paper-background-horizontal {
     border-right: 5px solid #e9e9e9;
     z-index: 0;
 }
-
-/* pinboard-background */
-
-pinboard-background #outline {
-    position: fixed;
-    background-color: transparent;
-    border: 5px solid #272727;
-    box-shadow:inset 0 0 0 5px #505050;
-    width: calc(100vw - 10px);
-    height: calc(100vh - 10px);
-    top: 0;
-    left: 0;
-    z-index: 5;
-    pointer-events: none;
-}
-
-pinboard-background .pinboard-corner {
-    position: fixed;
-    width: 5px;
-    height: 5px;
-    background-color: #272727;
-    z-index: 1;
-}
-
-pinboard-background #top-left-corner {
-    border-bottom: solid 5px #505050;
-    border-right: solid 5px #505050;
-    top: 5px;
-    left: 5px;
-}
-
-pinboard-background #top-right-corner {
-    border-bottom: solid 5px #505050;
-    border-left: solid 5px #505050;
-    top: 5px;
-    right: 5px;
-}
-
-pinboard-background #bottom-right-corner {
-    border-top: solid 5px #505050;
-    border-left: solid 5px #505050;
-    bottom: 5px;
-    right: 5px;
-}
-
-pinboard-background #bottom-left-corner {
-    border-top: solid 5px #505050;
-    border-right: solid 5px #505050;
-    bottom: 5px;
-    left: 5px;
-}
-
-/* @media only screen and (max-width: 1325px) {
-    plant-sticker {
-        display: none;
-    }
-} */
 
 @media only screen and (max-width: 1400px) {
     #sticky-notes-container {
