@@ -2,6 +2,7 @@ main-banner {
     filter: drop-shadow(5px 5px #505050);
     transform: skew(-.1rad);
     width: calc(58vw - 135px);
+    display: block;
 }
 
 main-banner account-banner {

@@ -1,0 +1,38 @@
+rewards-container {
+    display: inline-block;
+    margin-top: 15px;
+    border: 5px solid white;
+    filter: drop-shadow(5px 5px #505050);
+    margin-bottom: 15px;
+}
+
+rewards-section {
+    width: calc(58vw - 135px);
+    height: 20vw;
+
+    background-color: #313131;
+    /* border: #1a1a1a solid 5px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+canvas {
+    background-color: transparent;
+    image-rendering: pixelated;
+}
+
+rewards-text {
+    font-family: pixel;
+    font-size: 2.5vw;
+    color: white;
+    height: 6vw;
+    text-align: center;
+    margin: 1vw;
+    margin-left: 1.25vw;
+    margin-right: 0;
+}
+
+rewards-text > * {
+    margin-top: 1vw;
+}

@@ -25,11 +25,9 @@ status-section {
     right: 25px;
     padding-top: 10px;
     width: calc(57vw - 80px);
-    height: calc(100vh - 10px);
+    height: calc(100vh - 20px);
     overflow-y: scroll;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
 }
 
 status-section::-webkit-scrollbar-track {
