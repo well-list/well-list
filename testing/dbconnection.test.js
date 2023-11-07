@@ -1,113 +1,128 @@
-const {MongoClient} = require("mongodb");
+const mongoose = require("mongoose");
+const Rewards = require("../database/models/Rewards.model.js");
+const User = require("../database/models/User.js");
+const Task = require("../database/models/Tasks.js");
 
 // This goes over insertion and deletion of user and tasks of the user
-describe("insertion and deletion", () => {
+beforeAll(async () => {
     let connection;
-    let db;
-
-    beforeAll(async () => {
-        connection = await MongoClient.connect("mongodb+srv://User:mainpassword@cluster0.calse2v.mongodb.net/", {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        db = connection.db("app");  // This connects to the database called "app"
+    connection = await mongoose.connect("mongodb+srv://User:mainpassword@cluster0.calse2v.mongodb.net/", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     });
+});
 
-    afterAll(async () => {
-        // await User.deleteMany({});
-        // await Task.deleteMany({});
-        await connection.close();
+afterAll(async () => {
+    mongoose.disconnect();
+});
+
+
+describe("Direct insertion and deletion to DB via schemas", () => {
+    test("insert user", async () => {
+        const newUser = {username: "abc", password: "123"};
+        const insertedUser = await User.create(newUser);
+        const foundUser = await User.findOne({username: "abc"}, {_id: 0});
+        expect(foundUser).toMatchObject(newUser);   // This is a workaround!! .toEqual doesn't work.
     });
-
-
-    test("Adding user to database", async () => {
-        const users = db.collection("users");   // This connects to the collection/table called "users"
-        
-        const mockUser = {
-            "username": "abc", 
-            "password": "123",
-            "tasks": [
-                {"low-priority": []},   // Low priority
-                {"med-priority": []},   // Med priority
-                {"high-priority": []},  // High priority
-            ]
-        };
-        await users.insertOne(mockUser);
-
-        // the {_id:0} here basically returns the user WITHOUT the _id property.
-        const insertedUser = await users.findOne({"username": "abc"}, {_id: 0});
-        expect(insertedUser).toEqual(mockUser);
-
-    });
-
-
-    test("Adding to list in user", async () => {
-        const users = db.collection("users");
-
-        // Adding in tasks individually. updateMany seems to affect the collection when I just want to update
-        // this one user in particular. TODO: look into makin this cleaner
-        // "tasks.0.low-priority" is saying: in the task property's 0th element's low-priority property
-        // it's basically getting access low-priority array inside the "tasks" property.
-        await users.updateOne(
-            { username: "abc" }, 
-            { $addToSet: {"tasks.0.low-priority": "testing something haha"} }
-        );
-
-        await users.updateOne(
-            { username: "abc" }, 
-            { $addToSet: {"tasks.0.low-priority": "hmmm something else"} }
-        );
-
-        await users.updateOne(
-            { username: "abc" }, 
-            { $addToSet: {"tasks.1.med-priority": "thing in med prio"} }
-        );
-
-        await users.updateOne(
-            { username: "abc" }, 
-            { $addToSet: {"tasks.2.high-priority": "thing in high prio"} }
-        );
-
-        // This is essenitally what should be inside the "tasks" property
-        let someVar = [
-            {"low-priority": ["testing something haha", "hmmm something else"]},
-            {"med-priority": ["thing in med prio"]}, 
-            {"high-priority": ["thing in high prio"]}
-        ];
-
-        const findUser = await users.findOne({"username": "abc"}, {_id: 0});
-        const {tasks} = findUser;
-        expect(tasks).toEqual(someVar);
-    });
-
-
-    test("Removing item from list in user", async () => {
-        const users = db.collection("users");
-        
-        // the right side of the : in $pull is the value you're looking to remove.
-        // can set it equal to whatever is inside the line in the list we remove from in production
-        await users.updateOne(
-            { username: "abc" },
-            { $pull: {"tasks.0.low-priority": "testing something haha"} }
-        );
-
-        let someVar = [
-            {"low-priority": ["hmmm something else"]},
-            {"med-priority": ["thing in med prio"]}, 
-            {"high-priority": ["thing in high prio"]}
-        ];
-
-        const findUser = await users.findOne({"username": "abc"}, {_id: 0});
-        const {tasks} = findUser;
-        expect(tasks).toEqual(someVar);
-    });
-
     
-    test("Deleting user from database", async () => {
-        const users = db.collection("users");
-
-        await users.deleteOne({username: "abc"});
-        qResult = await users.findOne({"username": "abc"}, {_id: 0});  // returns null if does not exist
+    test("deleting user", async () => {
+        await User.deleteOne({username: "abc"});
+        const qResult = await User.findOne({"username": "abc"}, {_id: 0});  // returns null if does not exist
         expect(qResult).toEqual(null);
     });
+
+    test("Rewards schema insert", async () => {
+        const someUser = {
+            username: "abc",
+            month: new Date().toISOString().slice(0,10),
+            points: 0,
+            theme: 0,
+            plant_ids: [
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1]
+            ],
+            color_ids: [
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1]
+            ]
+        };
+
+        await Rewards.create(someUser);
+        const searchedUser = await Rewards.findOne({username: "abc"});
+        expect(searchedUser).toMatchObject(someUser);
+    });
+
+    // Updates the entire matrix in one
+    test("Updating Rewards data", async () => {
+        const newPlantIDs = [
+                [1, 1, 1, 1, 1, 1, 1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1],
+                [-1, -1, -1, -1, -1, -1, -1]
+        ];
+
+        await Rewards.updateOne(
+            {username: "abc"},
+            { $set: {
+                "plant_ids": newPlantIDs
+            }}
+        );
+
+        const searchQuery = await Rewards.findOne({username: "abc"});
+        expect(searchQuery.plant_ids).toEqual(newPlantIDs);
+    });
+
+    test("Removing Rewards entry", async () => {
+        await Rewards.deleteOne({username: "abc"});
+        const queryResult = await User.findOne({"username": "abc"});  // returns null if does not exist
+        expect(queryResult).toEqual(null);
+    });
+
+    test("Creating a task", async () => {
+        const newUserTask = {
+            _id: 0,
+            username: "abc",
+            priority: "low",
+            order: 0,
+            date: new Date().toISOString().slice(0,10),
+            description: "",
+            completed: false,
+        };
+
+        await Task.create(newUserTask);
+        const queryResult = await Task.findOne({username: "abc"});
+        expect(queryResult).toMatchObject(newUserTask);
+    });
+
+    test("Updating user task", async () => {
+        const newDescription = "Get at least 6 hours of sleep";
+        await Task.updateOne(
+            {username: "abc"},
+            { $set: {
+                "description": newDescription
+            }}
+        );
+
+        const queryResult = await Task.findOne({username: "abc"});
+        expect(queryResult.description).toEqual(newDescription);
+    });
+
+    test("Deleting user task", async () => {
+        await Task.deleteOne({username: "abc", _id: 0});
+        const queryResult = await Task.findOne({"username": "abc", _id: 0});  // returns null if does not exist
+        expect(queryResult).toEqual(null);
+    });
+
+
+    // the right side of the : in $pull is the value you're looking to remove (from array).
+    // can set it equal to whatever is inside the line in the list we remove from in production
+    // await users.updateOne(
+    //     { username: "abc" },
+    //     { $pull: {"tasks.0.low-priority": "testing something haha"} }
+    // );
+
 });
