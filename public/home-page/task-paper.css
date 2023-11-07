@@ -1,3 +1,13 @@
+textarea {
+    margin-left: 0.75vw;
+    width: calc(31.5vw - 25px);
+    height: fit-content;
+    font-family: YoungSerif;
+    font-size: 1.35vw;
+    resize: none;
+    margin-top: -0.1vw;
+}
+
 task-section {
     position: fixed;
     top: 10px;
@@ -52,6 +62,10 @@ task-paper#low-priority-task-paper {
     justify-content: space-between;
 }
 
+.task-paper-header .title-add-button-container {
+    display: flex;
+}
+
 .content-container .lined-area {
     margin-left: calc(0.5vw + 5px);
     width: calc(42vw - 25px);
@@ -82,11 +96,42 @@ task-paper#low-priority-task-paper {
     text-wrap: wrap;
 }
 
+.task-paper-header .add-task-button {
+    text-align: center;
+    color: #292929;
+}
+
+.task-paper-header .add-task-button:hover {
+    color: rgb(0, 85, 21);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .task-container .task-controls {
     display: flex;
     justify-content: space-evenly;
     width: 10vw;
     height: 2.2vw;
+}
+
+.task-controls .edit-button {
+    color: rgb(103, 103, 103);
+}
+
+.task-controls .edit-button:hover {
+    color: rgb(73, 73, 73);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.no-tasks-label {
+    width: calc(43vw - 25px);
+    text-align: center;
+    color: rgb(103, 103, 103);
+}
+
+.title-add-button-container .title {
+    margin-right: 0.75vw;
 }
 
 .task-container .task-controls input {
@@ -97,23 +142,6 @@ task-paper#low-priority-task-paper {
 }
 
 /* Background */
-
-/* .pin {
-    image-rendering: pixelated;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center top;
-    object-fit: contain;
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    z-index: 1;
-    left: calc(21.5vw - 15px);
-}
-
-#high-priority-pin {
-    background-image: url(../images/credits-pin.png);
-} */
 
 task-paper .paper-background {
     margin-top: 5px;

@@ -1,0 +1,127 @@
+#rewards-view-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(10, 10, 10, 0.9);
+    z-index: 1;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+canvas {
+    background-color: transparent;
+    image-rendering: pixelated;
+}
+
+#rewards-canvas-container {
+    /* 445px x 287px */
+    width: 97.5vw;
+    height: 62.882vw; /* (287 / 445) * 0.975 */
+    max-height: 97.5vh;
+    max-width: 151.176vh; /* (445 / 287) * 0.975 */
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left:0;
+    right:0;
+    display: flex;
+}
+
+#rewards-canvas-container .left-menu {
+    /* 15px x 287px */
+    width: 3.371%;
+    height: 100%;
+}
+
+#rewards-left-menu-ui {
+    z-index: 2;
+}
+
+#rewards-left-menu-background {
+    z-index: 1;
+}
+
+#rewards-canvas-container .main-view {
+    /* 270px x 287px */
+    margin: 0 0.449%;
+    width: 60.674%;
+    height: 100%;
+}
+
+#rewards-main-view-ui {
+    z-index: 5;
+}
+
+#rewards-main-view-hover {
+    z-index: 4;
+    opacity: 0.65;
+}
+
+#rewards-main-view-vined-pathos {
+    z-index: 3;
+}
+
+#rewards-main-view-plants {
+    z-index: 2;
+}
+
+#rewards-main-view-background {
+    z-index: 1;
+}
+
+#rewards-canvas-container .right-menu {
+    /* 156px x 287px */
+    margin-left: 0.449%;
+    width: 35.056%;
+    height: 100%;
+}
+
+#rewards-right-menu-ui {
+    z-index: 3;
+}
+
+#rewards-right-menu-text {
+    z-index: 2;
+}
+
+#rewards-right-menu-background {
+    z-index: 1;
+}
+
+.canvas-layer {
+    position: absolute;
+}
+
+@keyframes rewards-view-slide-out-top {
+    from { top: 0; bottom: 0; }
+    to { top: -100vw; bottom: 100vw; }
+}
+
+@keyframes rewards-view-slide-out-right {
+    from { right: 0; left: 0; }
+    to { right: -100vw; left: 100vw; }
+}
+
+@keyframes rewards-view-slide-out-left {
+    from { right: 0; left: 0; }
+    to { right: 100vw; left: -100vw; }
+}
+
+@keyframes rewards-view-slide-in-bottom {
+    from { top: 100vw; bottom: -100vw; }
+    to { top: 0; bottom: 0; }
+}
+
+@keyframes rewards-view-slide-in-right {
+    from { right: -100vw; left: 100vw; }
+    to { right: 0; left: 0; }
+}
+
+@keyframes rewards-view-slide-in-left {
+    from { right: 100vw; left: -100vw; }
+    to { right: 0; left: 0; }
+}

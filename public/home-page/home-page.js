@@ -1,3 +1,17 @@
+const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+const date = new Date();
+const month = date.toLocaleString('default', { month: 'long' });
+document.getElementById('date-banner').innerHTML = date.toLocaleString("en-US", options);
+document.getElementById('reward-section-header').innerHTML = `${month} Rewards`
+
+// REWARDS SECTION
+
 let canvas = document.getElementById('plant-summary-canvas');
 canvas.width = 573;
 canvas.height = 309;

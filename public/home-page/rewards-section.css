@@ -28,6 +28,12 @@ canvas {
     margin: 0;
 }
 
+#shop-button:hover {
+    cursor: pointer;
+    color: rgb(166, 255, 209);
+    border-color: rgb(166, 255, 209);
+}
+
 rewards-text {
     position: absolute;
     top: calc(0.0244 * (58vw - 127px));
@@ -51,8 +57,8 @@ rewards-text #reward-section-header {
 
 rewards-text #shop-button {
     margin: auto;
-    margin-top: 2vw;
-    padding: 0.5vw 3vw;
+    margin-top: 1.5vw;
+    padding: 1vw 4vw;
     width: fit-content;
     border: calc(0.003 * (58vw - 127px)) solid white;
 }

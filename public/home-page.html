@@ -10,7 +10,9 @@
     <link rel="stylesheet" type="text/css" href="home-page/sticky-notes.css">
     <link rel="stylesheet" type="text/css" href="home-page/rewards-section.css">
     <link rel="stylesheet" type="text/css" href="home-page/data-visualization.css">
+    <link rel="stylesheet" type="text/css" href="rewards/rewards.css">
     <script type="module" src="home-page/home-page.js" defer></script>
+    <script type="module" src="rewards/rewards.js" defer></script>
     <title>Well-List</title>
 </head>
 <body>
@@ -21,34 +23,48 @@
                     <div id="banner-title">Tasks</div>
                 </tasks-banner>
                 <task-paper id="high-priority-task-paper">
-                    <!-- <div id="high-priority-pin" class="pin"></div> -->
                     <div class="paper-background">
                         <div class="paper-background-vertical">
                             <div class="paper-background-horizontal">
                                 <div class="content-container">
                                     <div class="lined-area">
                                         <div class="task-paper-header">
-                                            <div class="title">High Priority</div>
+                                            <div class="title-add-button-container">
+                                                <div class="title">High Priority</div>
+                                                <div class="add-task-button" id="high-priority-add-task-button">Add +</div>
+                                            </div>
                                             <div class="high-piority-status">Completed 0/2</div>
                                         </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">First Task</div>
+                                        <div class="tasks-container">
+                                            <!-- <div class="no-tasks-label" id="high-priority-tasks-container">No High Priority Tasks Yet</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <textarea id="new-task-text-area" name="text-area" rows="2" cols="50"></textarea>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
+                                            </div> -->
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">First Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
-                                            </div>
-                                        </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">Second Task</div>
-                                            </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Second Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -58,34 +74,49 @@
                     </div>
                 </task-paper>
                 <task-paper id="medium-priority-task-paper">
-                    <!-- <div id="medium-priority-pin" class="pin"></div> -->
                     <div class="paper-background">
                         <div class="paper-background-vertical">
                             <div class="paper-background-horizontal">
                                 <div class="content-container">
                                     <div class="lined-area">
                                         <div class="task-paper-header">
-                                            <div class="title">Medium Priority</div>
-                                            <div class="high-piority-status">Completed 0/2</div>
+                                            <div class="title-add-button-container">
+                                                <div class="title">Medium Priority</div>
+                                                <div class="add-task-button" id="medium-priority-add-task-button">Add +</div>
+                                            </div>
+                                            <div class="medium-piority-status">Completed 0/3</div>
                                         </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">First Task</div>
+                                        <div class="tasks-container" id="medium-priority-tasks-container">
+                                            <!-- <div class="no-tasks-label">No Medium Priority Tasks Yet</div> -->
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">First Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Second Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">Second Task</div>
-                                            </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Third Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -95,34 +126,69 @@
                     </div>
                 </task-paper>
                 <task-paper id="low-priority-task-paper">
-                    <!-- <div id="low-priority-pin" class="pin"></div> -->
                     <div class="paper-background">
                         <div class="paper-background-vertical">
                             <div class="paper-background-horizontal">
                                 <div class="content-container">
                                     <div class="lined-area">
                                         <div class="task-paper-header">
-                                            <div class="title">Low Priority</div>
-                                            <div class="low-piority-status">Completed 0/2</div>
+                                            <div class="title-add-button-container">
+                                                <div class="title">Low Priority</div>
+                                                <div class="add-task-button" id="low-priority-add-task-button">Add +</div>
+                                            </div>
+                                            <div class="low-piority-status">Completed 0/5</div>
                                         </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">First Task</div>
+                                        <div class="tasks-container" id="low-priority-tasks-container">
+                                            <!-- <div class="no-tasks-label">No Low Priority Tasks Yet</div> -->
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">First Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Second Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="task-container">
-                                            <div class="task-description">
-                                                <div class="bullet">-</div>
-                                                <div class="text">Second Task</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Third Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
-                                            <div class="task-controls">
-                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                <div class="edit-button">edit</div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Fourth Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
+                                            </div>
+                                            <div class="task-container">
+                                                <div class="task-description">
+                                                    <div class="bullet">-</div>
+                                                    <div class="text">Fifth Task</div>
+                                                </div>
+                                                <div class="task-controls">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                    <div class="edit-button">edit</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +211,7 @@
                         <div>Username</div>
                         <div>Logout</div>
                     </account-banner>
-                    <top-half>Monday, October 30th, 2023</top-half>
+                    <top-half id="date-banner"></top-half>
                     <bottom-half>
                         <yesterday-button><- Previous Day</yesterday-button>
                         <tomorrow-button>Next Day -></tomorrow-button>
@@ -156,9 +222,9 @@
                         <rewards-text>
                             <div id="reward-section-header">November Rewards</div>
                             <div>Points Earned:</div>
-                            <div>9000</div>
+                            <div id="points-earned-label">00000</div>
                             <div>Points Spent:</div>
-                            <div>2000</div>
+                            <div id="points-spent-label">00000</div>
                             <div id="shop-button">Go To Shop</div>
                         </rewards-text>
                         <canvas id="plant-summary-canvas"></canvas>
@@ -182,6 +248,26 @@
             </status-section>
         </home-page-section>
     </main>
+    <div id="rewards-view-container" style="display: none;">
+        <div id="rewards-canvas-container">
+            <div id = "rewards-left-menu" class="left-menu">
+                <canvas id="rewards-left-menu-ui" class="canvas-layer left-menu"></canvas>
+                <canvas id="rewards-left-menu-background" class="canvas-layer left-menu"></canvas>
+            </div>
+            <div id = "rewards-main-view" class="main-view">
+                <canvas id="rewards-main-view-ui" class="canvas-layer main-view"></canvas>
+                <canvas id="rewards-main-view-hover" class="canvas-layer main-view"></canvas>
+                <canvas id="rewards-main-view-vined-pathos" class="canvas-layer main-view"></canvas>
+                <canvas id="rewards-main-view-plants"  class="canvas-layer main-view"></canvas>
+                <canvas id="rewards-main-view-background" class="canvas-layer main-view"></canvas>
+            </div>
+            <div id = "rewards-right-menu" class="right-menu">
+                <canvas id="rewards-right-menu-ui" class="canvas-layer right-menu"></canvas>
+                <canvas id="rewards-right-menu-text" class="canvas-layer right-menu"></canvas>
+                <canvas id="rewards-right-menu-background" class="canvas-layer right-menu"></canvas>
+            </div>
+        </div>
+    </div>
     <pinboard-background>
         <div id="top-left-corner" class="pinboard-corner"></div>
         <div id="top-right-corner" class="pinboard-corner"></div>
