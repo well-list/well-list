@@ -4,27 +4,27 @@ html, body {
 
 @font-face {
     font-family: pixel;
-    src: url(./fonts/04B_03__.ttf);
+    src: url(../fonts/04B_03__.ttf);
 }
 
 @font-face {
     font-family: Marker;
-    src: url(./fonts/PermanentMarker-Regular.ttf);
+    src: url(../fonts/PermanentMarker-Regular.ttf);
 }
 
 @font-face {
     font-family: Caveat;
-    src: url(./fonts/Caveat-VariableFont_wght.ttf);
+    src: url(../fonts/Caveat-VariableFont_wght.ttf);
 }
 
 @font-face {
     font-family: Roboto;
-    src: url(./fonts/Roboto-Black.ttf);
+    src: url(../fonts/Roboto-Black.ttf);
 }
 
 @font-face {
     font-family: YoungSerif;
-    src: url(./fonts/YoungSerif-Regular.ttf);
+    src: url(../fonts/YoungSerif-Regular.ttf);
 }
 
 /* pinboard-background */

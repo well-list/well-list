@@ -1,4 +1,4 @@
-import * as data from './data.js';
+import * as data from '../local-data.js';
 import * as leftMenu from './left-menu.js';
 import * as mainView from './main-view.js';
 import * as rightMenu from './right-menu.js';

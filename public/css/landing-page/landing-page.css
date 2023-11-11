@@ -1,0 +1,14 @@
+ul {
+    margin: 0;
+}
+
+@media only screen and (max-width: 700px) {
+    landing-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+}

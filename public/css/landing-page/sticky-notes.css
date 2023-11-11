@@ -1,0 +1,154 @@
+#sticky-notes-container {
+    position: fixed;
+    top: calc(65px + 5vh + 6vw);
+    right: 20px;
+    width: calc(55vw - 75px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(98vh - 6vw - 75px);
+    padding-right: 15px;
+    align-content: flex-start
+}
+
+/* Track */
+#sticky-notes-container::-webkit-scrollbar-track {
+    background: #ebba85; 
+}
+
+/* Handle */
+#sticky-notes-container::-webkit-scrollbar-thumb {
+    background: #9e6e3a; 
+}
+
+/* Handle on hover */
+#sticky-notes-container::-webkit-scrollbar-thumb:hover {
+    background: #926330; 
+}
+
+sticky-note {
+    border-top: 2.8vw solid rgb(142, 142, 142);
+    background-color: rgb(186, 186, 186);
+    width: 14.5vw;
+    min-height: 10vw;
+    height: 10vw;
+    filter: drop-shadow(5px 5px #505050);
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: Marker;
+    font-size: 2.5vw;
+    padding-top: 10px;
+    color: #292929;
+    cursor: pointer;
+}
+
+sticky-note:hover {
+    border-color: rgb(129, 129, 129);
+    background-color: rgb(172, 172, 172);
+    filter: drop-shadow(5px 5px rgb(32, 32, 32));
+}
+
+sticky-note.login {
+    border-color: rgb(97, 212, 166);
+    background-color: rgb(197, 255, 221);
+    color: rgb(20, 77, 17);
+}
+
+sticky-note.login:hover {
+    border-color: rgb(74, 190, 144);
+    background-color: rgb(165, 243, 198);
+}
+
+sticky-note.account-creation {
+    border-color: rgb(105, 207, 240);
+    background-color: rgb(175, 235, 255);
+    color: rgb(24, 53, 98);
+}
+
+sticky-note.account-creation:hover {
+    border-color: rgb(86, 187, 221);
+    background-color: rgb(149, 229, 255);
+}
+
+sticky-note.credits {
+    border-color: rgb(246, 148, 148);
+    background-color: rgb(255, 202, 202);
+    color: rgb(98, 24, 24);
+}
+
+sticky-note.credits:hover {
+    border-color: rgb(254, 122, 122);
+    background-color: rgb(255, 172, 172);
+}
+
+sticky-note.about {
+    border-color: rgb(213, 228, 133);
+    background-color: rgb(241, 252, 184);
+    color: rgb(78, 75, 19);
+}
+
+sticky-note.about:hover {
+    border-color: rgb(191, 205, 108);
+    background-color: rgb(225, 238, 162);
+}
+
+@media only screen and (max-width: 1400px) {
+    #sticky-notes-container {
+        justify-content: space-evenly;
+    }
+
+    sticky-note {
+        border-top: 3.5vw solid rgb(142, 142, 142);
+        font-size: 3.25vw;
+        width: calc(26vw - 45px);
+        height: 14vw;
+        min-height: 14vw;
+        margin-bottom: 35px;
+        margin: 0;
+    }
+
+    sticky-note#sticky-1 {
+        margin: 0 0 20px 0;
+    }
+
+    sticky-note#sticky-2 {
+        margin: 0 0 20px 0;
+    }
+
+    sticky-note#sticky-3 {
+        margin: 0 0 20px 0;
+    }
+
+    sticky-note#code-sticky {
+        position: static;
+        margin: 0 0 20px 0;
+        top:  none;
+        left: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #sticky-notes-container {
+        width: calc(96vw - 55px);
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        justify-content: space-evenly;
+        margin-left: 30px;
+        height: fit-content;
+    }
+
+    sticky-note {
+        border-top: 5vw solid rgb(142, 142, 142);
+        font-size: 5vw;
+        width: calc(35vw);
+        height: 20vw;
+        min-height: 14vw;
+        margin-bottom: 35px;
+        margin: 0;
+    }
+}

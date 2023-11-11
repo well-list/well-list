@@ -1,4 +1,4 @@
-import * as data from './data.js';
+import * as data from '../local-data.js';
 import * as sprites from './sources.js';
 import * as utils from './utils.js';
 import * as constants from './main-view-constants.js';

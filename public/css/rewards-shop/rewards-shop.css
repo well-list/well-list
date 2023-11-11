@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     background-color: rgba(10, 10, 10, 0.9);
-    z-index: 1;
+    z-index: 10;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */

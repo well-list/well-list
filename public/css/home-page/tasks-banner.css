@@ -18,28 +18,3 @@ tasks-banner #banner-title {
     height: fit-content;
     text-align: center;
 }
-
-status-section {
-    position: fixed;
-    top: 10px;
-    right: 25px;
-    padding-top: 10px;
-    width: calc(57vw - 80px);
-    height: calc(100vh - 20px);
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-status-section::-webkit-scrollbar-track {
-    background: #dba56b; 
-}
-
-/* Handle */
-status-section::-webkit-scrollbar-thumb {
-    background: #505050; 
-}
-
-/* Handle on hover */
-status-section::-webkit-scrollbar-thumb:hover {
-    background: #272727;
-}

@@ -1,4 +1,4 @@
-import * as params from '../params.js';
+import * as params from '../../constants.js';
 import * as utils from './utils.js';
 
 const THEME = 'theme';
