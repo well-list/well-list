@@ -1,5 +1,5 @@
-import { handleLogin } from "./login";
-import { handleAccountCreation } from "./create-account";
+import { handleLogin } from "./login.js";
+import { handleAccountCreation } from "./create-account.js";
 
 loadLogin();
 

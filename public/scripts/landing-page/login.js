@@ -47,8 +47,8 @@ function handleLoginSuccess() {
 
 function handleLoginFail(message) {
     setMessageText(message);
-    usernameInput.value = '';
-    passwordInput.value = '';
+    document.getElementById('username-input').value = '';
+    document.getElementById('password-input').value = '';
 }
 
 function getUsernamePasswordInput() {

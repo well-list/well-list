@@ -49,8 +49,8 @@ function handleAccountCreationSuccess() {
 
 function handleAccountCreationFail(message) {
     setMessageText(message);
-    usernameInput.value = '';
-    passwordInput.value = '';
+    document.getElementById('username-input').value = '';
+    document.getElementById('password-input').value = '';
 }
 
 function getUsernamePasswordInput() {

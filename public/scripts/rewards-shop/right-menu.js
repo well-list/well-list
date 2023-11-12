@@ -1,8 +1,8 @@
 import * as data from '../local-data.js';
-import * as sprites from './sources.js';
+import * as sprites from '../sprite-sources.js';
 import * as utils from './utils.js';
 import * as constants from './right-menu-constants.js';
-import { handleThemeChange } from './rewards.js';
+import { handleThemeChange } from './main.js';
 
 var IS_INITIALIZED = false;
 

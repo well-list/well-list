@@ -1,9 +1,9 @@
 import * as data from '../local-data.js';
-import * as sprites from './sources.js';
+import * as sprites from '../sprite-sources.js';
 import * as utils from './utils.js';
 import * as constants from './left-menu-constants.js';
 
-import { handleRewardsScreenExit, handleMonthChange } from './rewards.js'
+import { handleRewardsScreenExit, handleMonthChange } from './main.js'
 
 var IS_INITIALIZED = false;
 
