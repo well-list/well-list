@@ -1,3 +1,12 @@
+export function createElement(type, attributes, values, innerHTML) {
+    const element = document.createElement(type);
+    for(let i = 0; i < attributes.length; i++) {
+        element.setAttribute(attributes[i], values[i]);
+    }
+    if(innerHTML !== null) element.innerHTML = innerHTML;
+    return element;
+}
+
 export function drawImageOnCanvas(canvasCtx, imageSrc, x, y) {
     return new Promise(function(resolve, reject) {
         var img = new Image();

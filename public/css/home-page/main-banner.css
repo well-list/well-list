@@ -75,3 +75,8 @@ bottom-half tomorrow-button:hover {
     background: linear-gradient(to right, #0eaf67 0%, #0c9ace 100%);
     cursor: pointer;
 }
+
+#logout-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

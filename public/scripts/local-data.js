@@ -1,5 +1,5 @@
 import * as params from '../constants.js';
-import * as utils from './rewards-shop/utils.js';
+import * as utils from './utils.js';
 
 const THEME = 'theme';
 const POINTS = 'points';

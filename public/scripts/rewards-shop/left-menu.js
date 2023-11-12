@@ -1,6 +1,6 @@
 import * as data from '../local-data.js';
 import * as sprites from '../sprite-sources.js';
-import * as utils from './utils.js';
+import * as utils from '../utils.js';
 import * as constants from './left-menu-constants.js';
 
 import { handleRewardsScreenExit, handleMonthChange } from './main.js'

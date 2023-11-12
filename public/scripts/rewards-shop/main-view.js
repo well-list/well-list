@@ -1,6 +1,6 @@
 import * as data from '../local-data.js';
 import * as sprites from '../sprite-sources.js';
-import * as utils from './utils.js';
+import * as utils from '../utils.js';
 import * as constants from './main-view-constants.js';
 import { handlePlantBoughtOrSold } from './main.js';
 

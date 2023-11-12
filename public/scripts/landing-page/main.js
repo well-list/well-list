@@ -1,5 +1,6 @@
 import { handleLogin } from "./login.js";
 import { handleAccountCreation } from "./create-account.js";
+import { createElement } from "../utils.js";
 
 loadLogin();
 
@@ -123,13 +124,4 @@ function loadAbout() {
 
 function setMenuTitle(titleText) {
     document.getElementById('title').innerHTML = titleText;
-}
-
-function createElement(type, attributes, values, innerHTML) {
-    const element = document.createElement(type);
-    for(let i = 0; i < attributes.length; i++) {
-        element.setAttribute(attributes[i], values[i]);
-    }
-    if(innerHTML !== null) element.innerHTML = innerHTML;
-    return element;
 }
