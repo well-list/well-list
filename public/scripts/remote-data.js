@@ -1,12 +1,12 @@
-export function buyPlant(row, column, plantID, colorID, month) {
+export function buyPlant(row, column, plantID, colorID, username, month) {
 
 }
 
-export function sellPlant(row, column, month) {
+export function sellPlant(row, column, username, month) {
 
 }
 
-export function movePlant(originRow, originColumn, destinationRow, destinationColumn, month) {
+export function movePlant(originRow, originColumn, destinationRow, destinationColumn, username, month) {
 
 }
 
@@ -38,6 +38,6 @@ export function getTasks(date) {
 
 }
 
-export function getRewardsData(month) {
+export function getRewardsData(username, month) {
 
 }

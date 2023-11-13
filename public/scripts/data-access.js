@@ -5,6 +5,7 @@ import * as utils from './utils.js';
 import * as data_connection from './local-data.js';
 // import * as data_connection from './remote-data.js';
 
+var LOGGED_IN_USER = null;
 var FOCUSED_DATE = new Date();
 var FOCUSED_DATE_STRING = utils.getDateString(new Date());
 var FOCUSED_MONTH = utils.getMonthString(new Date());
@@ -12,6 +13,10 @@ var FOCUSED_MONTH = utils.getMonthString(new Date());
 export var SELECTION_MODE = constants.DEFAULT_SELECTION_MODE;
 export var SELECTED_PLANT = constants.DEFAULT_SELECTED_PLANT;
 export var SELECTED_PLANT_COLOR = constants.DEFAULT_SELECTED_PLANT_COLOR;
+
+export function setLoggedInUser(username) {
+    LOGGED_IN_USER = username;
+}
 
 export function resetSelectedSettings() {
     SELECTION_MODE = constants.DEFAULT_SELECTION_MODE;
@@ -60,15 +65,15 @@ export function changeToPreviousMonth() {
 // --- Data Updates ---
 
 export function buyPlant(row, column, plantID, colorID) {
-    return data_connection.buyPlant(row, column, plantID, colorID, FOCUSED_MONTH);
+    return data_connection.buyPlant(row, column, plantID, colorID, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
 export function sellPlant(row, column) {
-    return data_connection.sellPlant(row, column, FOCUSED_MONTH);
+    return data_connection.sellPlant(row, column, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
 export function movePlant(originRow, originColumn, destinationRow, destinationColumn) {
-    return data_connection.movePlant(originRow, originColumn, destinationRow, destinationColumn, FOCUSED_MONTH);
+    return data_connection.movePlant(originRow, originColumn, destinationRow, destinationColumn, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
 export function addNewTask(task_id, order, username, priority, description) {
@@ -104,5 +109,5 @@ export function getTasks() {
 
 // gets rewards data for focused month
 export function getRewardsData() {
-    return data_connection.getRewardsData(FOCUSED_MONTH);
+    return data_connection.getRewardsData(LOGGED_IN_USER, FOCUSED_MONTH);
 }
