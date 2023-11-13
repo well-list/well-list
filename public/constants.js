@@ -21,3 +21,26 @@ export const PLANT_COSTS = [
     JUNIPER_BOMZAI_COSTS,
     VINED_PATHOS_COSTS
 ]
+
+export const SHELF_ROWS = 4;
+export const SHELF_COLUMNS = 7;
+export const EMPTY_ID = -1;
+export const VINE_PATHOS_ID = 5;
+
+export const MOVE_SELECTION_MODE = 0;
+export const SELL_SELECTION_MODE = 1;
+export const BUY_SELECTION_MODE = 2;
+
+// Data Keys
+export const TASK_ID = "_id";
+export const USERNAME = "username";
+export const PRIORITY = "priority";
+export const DATE = "date";
+export const DESCRIPTION = "description";
+export const COMPLETED = "completed";
+
+export const MONTH = "month";
+export const POINTS = "points";
+export const THEME = "theme";
+export const PLANT_IDS = "plant_ids";
+export const COLOR_IDS = "color_ids";

@@ -1,35 +1,55 @@
-import * as params from '../constants.js';
+import * as constants from '../constants.js';
+
+export function buyPlant(row, column, plantID, colorID, month) {
+
+}
+
+export function sellPlant(row, column, month) {
+
+}
+
+export function movePlant(originRow, originColumn, destinationRow, destinationColumn, month) {
+
+}
+
+export function addNewTask(task_id, order, username, priority, description, date) {
+
+}
+
+export function updateTaskCompleteStatus(task_id, isCompleted) {
+
+}
+
+export function removeTask(task_id) {
+
+}
+
+export function updateTaskDescription(task_id, description) {
+
+}
+
+export function clearTasks(date) {
+
+}
+
+export function addTasks(tasks, date) {
+
+}
+
+export function getTasks(date) {
+
+}
+
+export function getRewardsData(month) {
+
+}
+
+// ------------------------ OLD LOCAL DATA ------------------------
+
 import * as utils from './utils.js';
 
-const THEME = 'theme';
-const POINTS = 'points';
-const SHELF = 'shelf-data';
-const PLANT_TYPE = 'plant-type';
-const COLOR_TYPE = 'plant-color-type';
-
-export const SHELF_ROWS = 4;
-export const SHELF_COLUMNS = 7;
-export const EMPTY_ID = -1;
-export const VINE_PATHOS_ID = 5;
-
-export const MOVE_SELECTION_MODE = 0;
-export const SELL_SELECTION_MODE = 1;
-export const BUY_SELECTION_MODE = 2;
-
-var IS_INITIALIZED = false;
-
-var REWARDS_DATA = {};
-var FOCUSED_MONTH = utils.getCurrentMonth();
-
-var SELECTION_MODE = params.DEFAULT_SELECTION_MODE;
-var SELECTED_PLANT = params.DEFAULT_SELECTED_PLANT;
-var SELECTED_PLANT_COLOR = params.DEFAULT_SELECTED_PLANT_COLOR;
-
-export function clearSelectedSettings() {
-    SELECTION_MODE = params.DEFAULT_SELECTION_MODE;
-    SELECTED_PLANT = params.DEFAULT_SELECTED_PLANT;
-    SELECTED_PLANT_COLOR = params.DEFAULT_SELECTED_PLANT_COLOR;
-}
+var TASK_COLLECTION = [];
+var REWARDS_COLLECTION = [];
 
 export function setRewardsData(rewardsData) {
     REWARDS_DATA = rewardsData;
@@ -45,23 +65,25 @@ export function initializeDefaultRewardsData() {
     }
 }
 
-export function getDefaultSettingsForMonth() {
-    const defualtMonthSettings = {};
-    defualtMonthSettings[THEME] = params.DEFAULT_THEME;
-    defualtMonthSettings[POINTS] = params.DEFAULT_POINTS;
-    defualtMonthSettings[SHELF] = [];
+export function getDefaultMonthRewardData() {
+    const defaultMonthData = {};
+    defaultMonthData[THEME] = constants.DEFAULT_THEME;
+    defaultMonthData[POINTS] = constants.DEFAULT_POINTS;
+    defaultMonthData[PLANT_IDS] = [];
+    defaultMonthData[COLOR_IDS] = [];
 
     for(let r = 0; r < SHELF_ROWS; r++) {
-        defualtMonthSettings[SHELF].push([]);
+        defaultMonthData[PLANT_IDS].push([]);
+        defaultMonthData[COLOR_IDS].push([]);
         for(let c = 0; c < SHELF_COLUMNS; c++) {
             const defaultShelfPlantSettings = {};
             defaultShelfPlantSettings[PLANT_TYPE] = EMPTY_ID;
             defaultShelfPlantSettings[COLOR_TYPE] = EMPTY_ID;
-            defualtMonthSettings[SHELF][r].push(defaultShelfPlantSettings);
+            defaultMonthData[SHELF][r].push(defaultShelfPlantSettings);
         }
     }
 
-    return defualtMonthSettings;
+    return defaultMonthData;
 }
 
 export function setFocusedMonthTheme(themeID) {
@@ -149,24 +171,12 @@ export function movePlant(movePlantOrigin, movePlantDestination) {
     REWARDS_DATA[FOCUSED_MONTH][SHELF][movePlantOrigin['row']][movePlantOrigin['column']][COLOR_TYPE] = EMPTY_ID;
 }
 
-export function isDefaultSelectionMode() {
-    return SELECTION_MODE === params.DEFAULT_SELECTION_MODE;
-}
-
-export function isDefaultSelectedPlant() {
-    return SELECTED_PLANT === params.DEFAULT_SELECTED_PLANT;
-}
-
-export function isDefaultSelectedColor() {
-    return SELECTED_PLANT_COLOR === params.DEFAULT_SELECTED_PLANT_COLOR;
+export function isPlantAffordable(plantID, colorID) {
+    return getPlantCost(plantID, colorID) <= getPointsForFocusedMonth();
 }
 
 export function isShelfPositionEmpty(row, column) {
     return REWARDS_DATA[FOCUSED_MONTH][SHELF][row][column][PLANT_TYPE] === EMPTY_ID;
-}
-
-export function isPlantAffordable(plantID, colorID) {
-    return getPlantCost(plantID, colorID) <= getPointsForFocusedMonth();
 }
 
 export function getPointsForFocusedMonth() {
@@ -174,7 +184,7 @@ export function getPointsForFocusedMonth() {
 }
 
 export function getPlantCost(plantID, colorID) {
-    return params.PLANT_COSTS[plantID][colorID];
+    return constants.PLANT_COSTS[plantID][colorID];
 }
 
 export function getFocusedMonthPlantType(row, column) {
@@ -183,18 +193,4 @@ export function getFocusedMonthPlantType(row, column) {
 
 export function getFocusedMonthColorType(row, column) {
     return REWARDS_DATA[FOCUSED_MONTH][SHELF][row][column][COLOR_TYPE]
-}
-
-export function getRewardsDataAsString() {
-    return JSON.stringify(REWARDS_DATA);
-}
-
-function updateFocusedMonth(month, year) {
-    FOCUSED_MONTH = `${month}-${year}`;
-    if(!REWARDS_DATA.hasOwnProperty(FOCUSED_MONTH)) {
-        REWARDS_DATA[FOCUSED_MONTH] = getDefaultSettingsForMonth();
-    }
-    SELECTION_MODE = params.DEFAULT_SELECTION_MODE;
-    SELECTED_PLANT = params.DEFAULT_SELECTED_PLANT;
-    SELECTED_PLANT_COLOR = params.DEFAULT_SELECTED_PLANT_COLOR;
 }
