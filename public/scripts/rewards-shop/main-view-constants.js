@@ -1,3 +1,9 @@
+import * as constants from '../../constants.js';
+
+export const VINE_PATHOS_ID = constants.VINE_PATHOS_ID;
+export const SHELF_ROWS = constants.SHELF_ROWS;
+export const SHELF_COLUMNS = constants.SHELF_COLUMNS;
+
 // used for determing selected shelf grid position on hover and mouse down events
 export const SHELF_GRID_OFFSET = {'x': 6, 'y': 6};
 export const GRID_POSITION_SPACING = {'horizontal': 1, 'vertical': 3}

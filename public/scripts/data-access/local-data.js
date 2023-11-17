@@ -1,4 +1,4 @@
-import * as constants from '../constants.js';
+import * as constants from '../../constants.js';
 
 var TASK_COLLECTION = [];
 var REWARDS_COLLECTION = [];
@@ -29,6 +29,8 @@ export function buyPlant(row, column, plantID, colorID, username, month) {
 export function sellPlant(row, column, username, month) {
     const rewardsElement = getRewardsData(username, month);
     if(!isPositionFree(rewardsElement, row, column)) {
+        const plantID = rewardsElement[constants.PLANT_IDS][row][column];
+        const colorID = rewardsElement[constants.COLOR_IDS][row][column];
         const plantCost = constants.PLANT_COSTS[plantID][colorID];
         const updatedPoints = rewardsElement[constants.POINTS] + plantCost;
         const updatedPlantIDs = rewardsElement[constants.PLANT_IDS];
@@ -51,7 +53,7 @@ export function sellPlant(row, column, username, month) {
 
 export function movePlant(originRow, originColumn, destinationRow, destinationColumn, username, month) {
     const rewardsElement = getRewardsData(username, month);
-    if(!isPositionFree(rewardsElement, originRow, originColumn) && isPositionFree(destinationRow, destinationColumn)) {
+    if(!isPositionFree(rewardsElement, originRow, originColumn) && isPositionFree(rewardsElement, destinationRow, destinationColumn)) {
         const updatedPlantIDs = rewardsElement[constants.PLANT_IDS];
         const updatedColorIDs = rewardsElement[constants.COLOR_IDS];
         updatedPlantIDs[destinationRow][destinationColumn] = updatedPlantIDs[originRow][originColumn]
@@ -68,6 +70,16 @@ export function movePlant(originRow, originColumn, destinationRow, destinationCo
         REWARDS_COLLECTION[rewardsElementIndex][constants.COLOR_IDS] = updatedColorIDs;
     }
     return false;
+}
+
+export function setRewardsTheme(theme_id, username, month) {
+    // update data
+    const rewardsElementIndex = getElementIndex(
+        REWARDS_COLLECTION,
+        [constants.USERNAME, constants.MONTH],
+        [username, month]
+    );
+    REWARDS_COLLECTION[rewardsElementIndex][constants.THEME] = theme_id;
 }
 
 export function addNewTask(task_id, order, username, priority, description, date) {
@@ -117,11 +129,11 @@ export function getTasks(username, date) {
 }
 
 export function getRewardsData(username, month) {
-    rewardsIndex = getElementIndex(
+    const rewardsIndex = getElementIndex(
         REWARDS_COLLECTION,
         [constants.USERNAME, constants.MONTH],
         [username, month]
-        );
+    );
     if(rewardsIndex === -1) {
         REWARDS_COLLECTION.push(createDefaultRewardsElement(username, month));
         return REWARDS_COLLECTION[REWARDS_COLLECTION.length-1];
@@ -130,12 +142,12 @@ export function getRewardsData(username, month) {
 }
 
 function isPositionFree(rewardsElement, row, column) {
-    return rewardsElement[constants.PLANT_IDS][row] == constants.EMPTY_ID &&
-            rewardsElement[constants.COLOR_IDS][row] == constants.EMPTY_ID;
+    return rewardsElement[constants.PLANT_IDS][row][column] == constants.EMPTY_ID &&
+            rewardsElement[constants.COLOR_IDS][row][column] == constants.EMPTY_ID;
 }
 
 function createTaskElement(task_id, order, username, priority, description, date) {
-    task = {};
+    const task = {};
     task[`${constants.TASK_ID}`] = task_id;
     task[`${constants.ORDER}`] = order;
     task[`${constants.USERNAME}`] = username;
@@ -146,19 +158,19 @@ function createTaskElement(task_id, order, username, priority, description, date
 }
 
 function createDefaultRewardsElement(username, month) {
-    defaultRewards = {};
+    const defaultRewards = {};
     defaultRewards[`${constants.USERNAME}`] = username;
     defaultRewards[`${constants.MONTH}`] = month;
     defaultRewards[`${constants.POINTS}`] = constants.DEFAULT_POINTS;
     defaultRewards[`${constants.THEME}`] = constants.DEFAULT_THEME;
-    [plant_ids, color_ids] = getEmptyShelfData()
+    const [plant_ids, color_ids] = getEmptyShelfData()
     defaultRewards[`${constants.PLANT_IDS}`] = plant_ids;
     defaultRewards[`${constants.COLOR_IDS}`] = color_ids;
     return defaultRewards;
 }
 
 function getEmptyShelfData() {
-    [plant_ids, color_ids] = [], []
+    const [plant_ids, color_ids] = [[], []]
     for(let r = 0; r < constants.SHELF_ROWS; r++) {
         plant_ids.push([]);
         color_ids.push([]);
@@ -181,6 +193,10 @@ function getAllElementsWithMatchingKeyValues(jsonArray, keys, values) {
 }
 
 function getElementIndex(jsonArray, keys, values) {
+    const elementIndexes = getElementIndexes(jsonArray, keys, values);
+    if (elementIndexes.length === 0) {
+        return -1;
+    }
     return getElementIndexes(jsonArray, keys, values)[0];
 }
 
@@ -191,7 +207,7 @@ function getElementIndexes(jsonArray, keys, values) {
     }
 
     for (let i = 0; i < jsonArray.length; i++) {
-        keyValuesEqual = Array(keys.length).fill(false);
+        const keyValuesEqual = Array(keys.length).fill(false);
         for (let j = 0; j < keys.length; j++) {
             if (jsonArray[i][keys[j]] === values[j]) {
                 keyValuesEqual[j] = true;

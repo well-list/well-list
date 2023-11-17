@@ -1,4 +1,4 @@
-import * as data from '../local-data.js';
+import * as data from '../data-access/data-access.js';
 import * as sprites from '../sprite-sources.js';
 import * as utils from '../utils.js';
 import * as constants from './main-view-constants.js';
@@ -63,21 +63,21 @@ function handleCanvasHover(event) {
 
     lastHoverPosition = gridPosition;
     drawHoverSelectionOutline(gridPosition);
-    if(data.getSelectionMode() === data.BUY_SELECTION_MODE && data.getSelectedPlant() !== data.EMPTY_ID) {
-        if (data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column']) && data.isPlantAffordable(data.getSelectedPlant(), data.getSelectedPlantColor())) {
+    if(data.isBuySelectionMode() && data.isPlantSelected()) {
+        if (data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column']) && data.isPlantAffordable(data.getSelectedPlant(), data.getSelectedPlantColor())) {
             drawPlant(hoverCanvasContext, gridPosition, data.getSelectedPlantColor(), data.getSelectedPlant());
         }
     }
 
-    if(data.getSelectionMode() === data.SELL_SELECTION_MODE && !data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column'])) {
+    if(data.isSellSelectionMode() && !data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column'])) {
         replacePlantWithHoverPlant(gridPosition['row'], gridPosition['column']);
         replacedSellPlant = gridPosition;
     }
 
-    if(data.getSelectionMode() === data.MOVE_SELECTION_MODE && movePlantOrigin !== null) {
-        if(data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column']) || (gridPosition['row'] === movePlantOrigin['row'] && gridPosition['column'] === movePlantOrigin['column'])) {
-            const plantID = data.getFocusedMonthPlantType(movePlantOrigin['row'], movePlantOrigin['column']);
-            const colorID = data.getFocusedMonthColorType(movePlantOrigin['row'], movePlantOrigin['column']);
+    if(data.isMoveSelectionMode() && movePlantOrigin !== null) {
+        if(data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column']) || (gridPosition['row'] === movePlantOrigin['row'] && gridPosition['column'] === movePlantOrigin['column'])) {
+            const plantID = data.getRewardsPlantID(movePlantOrigin['row'], movePlantOrigin['column']);
+            const colorID = data.getRewardsColorID(movePlantOrigin['row'], movePlantOrigin['column']);
             drawPlant(hoverCanvasContext, gridPosition, colorID, plantID);
             movePlantDestination = gridPosition;
         }
@@ -89,16 +89,16 @@ function handleCanvasMouseDown(event) {
     const gridPosition = getShelfGridPositionFromMousePosition(mousePos);
     if(gridPosition === null) return;
 
-    if(data.getSelectionMode() === data.BUY_SELECTION_MODE && data.getSelectedPlant() !== data.EMPTY_ID) {
-        if(data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column']) && data.isPlantAffordable(data.getSelectedPlant(), data.getSelectedPlantColor())) {
-            const plantCanvasCtx = (data.getSelectedPlant() === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    if(data.isBuySelectionMode() && data.isPlantSelected()) {
+        if(data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column']) && data.isPlantAffordable(data.getSelectedPlant(), data.getSelectedPlantColor())) {
+            const plantCanvasCtx = (data.getRewardsPlantID(gridPosition['row'], gridPosition['column']) === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
             drawPlant(plantCanvasCtx, gridPosition, data.getSelectedPlantColor(), data.getSelectedPlant());
             data.buyPlant(gridPosition['row'], gridPosition['column'], data.getSelectedPlant(), data.getSelectedPlantColor());
             handlePlantBoughtOrSold();
         }
     }
 
-    if(data.getSelectionMode() === data.SELL_SELECTION_MODE && !data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column'])) {
+    if(data.isSellSelectionMode() && !data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column'])) {
         replacedSellPlant = null;
         clearAnyHoverChanges();
         drawHoverSelectionOutline(gridPosition);
@@ -107,7 +107,7 @@ function handleCanvasMouseDown(event) {
         handlePlantBoughtOrSold();
     }
 
-    if(data.getSelectionMode() === data.MOVE_SELECTION_MODE && !data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column'])) {
+    if(data.isMoveSelectionMode() && !data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column'])) {
         replacePlantWithHoverPlant(gridPosition['row'], gridPosition['column']);
         movePlantOrigin = gridPosition;
         movePlantDestination = gridPosition;
@@ -118,14 +118,14 @@ function handleCanvasMouseUp(event) {
     const mousePos = utils.getMouseCanvasCoordinates(uiCanvas, event);
     const gridPosition = getShelfGridPositionFromMousePosition(mousePos);
 
-    if(data.getSelectionMode() === data.MOVE_SELECTION_MODE && movePlantOrigin !== null) {
-        const plantID = data.getFocusedMonthPlantType(movePlantOrigin['row'], movePlantOrigin['column']);
-        const colorID = data.getFocusedMonthColorType(movePlantOrigin['row'], movePlantOrigin['column']);
-        const plantCanvasCtx = (plantID === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    if(data.isMoveSelectionMode() && movePlantOrigin !== null) {
+        const plantID = data.getRewardsPlantID(movePlantOrigin['row'], movePlantOrigin['column']);
+        const colorID = data.getRewardsColorID(movePlantOrigin['row'], movePlantOrigin['column']);
+        const plantCanvasCtx = (plantID === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
         if(gridPosition === null) drawPlant(plantCanvasCtx, movePlantOrigin, colorID, plantID);
-        else if (data.isShelfPositionEmpty(gridPosition['row'], gridPosition['column'])) {
+        else if (data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column'])) {
             drawPlant(plantCanvasCtx, gridPosition, colorID, plantID);
-            data.movePlant(movePlantOrigin, movePlantDestination);
+            data.movePlant(movePlantOrigin['row'], movePlantOrigin['column'], movePlantDestination['row'], movePlantDestination['column']);
         }
         else drawPlant(plantCanvasCtx, movePlantOrigin, colorID, plantID);
         movePlantOrigin = null;
@@ -137,10 +137,10 @@ function handleCanvasMouseUp(event) {
 function handleCanvasMouseLeave() {
     clearAnyHoverChanges();
 
-    if(data.getSelectionMode() === data.MOVE_SELECTION_MODE && movePlantOrigin !== null) {
-        const plantID = data.getFocusedMonthPlantType(movePlantOrigin['row'], movePlantOrigin['column']);
-        const colorID = data.getFocusedMonthColorType(movePlantOrigin['row'], movePlantOrigin['column']);
-        const plantCanvasCtx = (plantID === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    if(data.isMoveSelectionMode() && movePlantOrigin !== null) {
+        const plantID = data.getRewardsPlantID(movePlantOrigin['row'], movePlantOrigin['column']);
+        const colorID = data.getRewardsColorID(movePlantOrigin['row'], movePlantOrigin['column']);
+        const plantCanvasCtx = (plantID === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
         drawPlant(plantCanvasCtx, movePlantOrigin, colorID, plantID);
         movePlantOrigin = null;
         movePlantDestination = null;
@@ -169,7 +169,7 @@ function drawPlant(canvasContext, gridPosition, colorID, plantID) {
 
 function drawHoverSelectionOutline(gridPosition) {
     const drawingOrigin = getDrawingOriginFromGridPosition(gridPosition);
-    const selectionOutline = sprites.gridShelfSelectionOutline[data.getFocusedMonthTheme()];
+    const selectionOutline = sprites.gridShelfSelectionOutline[data.getRewardsTheme()];
     const x = drawingOrigin['x'] - 3;
     const y = drawingOrigin['y'] - 2;
     utils.drawImageOnCanvas(uiCanvasContext, selectionOutline, x, y);
@@ -177,8 +177,8 @@ function drawHoverSelectionOutline(gridPosition) {
 
 function replacePlantWithHoverPlant(row, column) {
     const gridPosition = {'row': row, 'column': column};
-    const plantID = data.getFocusedMonthPlantType(row, column);
-    const colorID = data.getFocusedMonthColorType(row, column);
+    const plantID = data.getRewardsPlantID(row, column);
+    const colorID = data.getRewardsColorID(row, column);
 
     drawPlant(hoverCanvasContext, gridPosition, colorID, plantID).then(() => {
        clearPlant(row, column);
@@ -187,27 +187,26 @@ function replacePlantWithHoverPlant(row, column) {
 
 function replaceHoverPlantWithPlant(row, column) {
     const gridPosition = {'row': row, 'column': column};
-    const plantID = data.getFocusedMonthPlantType(row, column);
-    const colorID = data.getFocusedMonthColorType(row, column);
-    const plantCanvasCtx = (plantID === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    const plantID = data.getRewardsPlantID(row, column);
+    const colorID = data.getRewardsColorID(row, column);
+    const plantCanvasCtx = (plantID === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
     drawPlant(plantCanvasCtx, gridPosition, colorID, plantID);
 }
 
 function clearPlant(row, column) {
     const gridPosition = {'row': row, 'column': column};
-    const plantID = data.getFocusedMonthPlantType(row, column);
     const plantOrigin = getDrawingOriginFromGridPosition(gridPosition);
-    const plantCanvasCtx = (plantID === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
-    const yOffset = (plantID === data.VINE_PATHOS_ID) ? 28 : 0;
+    const plantCanvasCtx = (data.getRewardsPlantID(row, column) === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    const yOffset = (data.getRewardsPlantID(row, column) === constants.VINE_PATHOS_ID) ? 28 : 0;
     plantCanvasCtx.clearRect(plantOrigin['x'], plantOrigin['y'] + yOffset, constants.GRID_POSITION_WIDTH, constants.GRID_POSITION_HEIGHT);
 }
 
 function getShelfGridPositionFromMousePosition(mousePos) {
     let y1 = constants.SHELF_GRID_OFFSET['y'] + constants.GRID_POSITION_SPACING['vertical'] - 2;
-    for(let r = 0; r < data.SHELF_ROWS; r++) {
+    for(let r = 0; r < constants.SHELF_ROWS; r++) {
         let x1 = constants.SHELF_GRID_OFFSET['x'] + constants.GRID_POSITION_SPACING['horizontal'] - 1;
         const y2 = y1 + constants.GRID_POSITION_HEIGHT;
-        for(let c = 0; c < data.SHELF_COLUMNS; c++) {
+        for(let c = 0; c < constants.SHELF_COLUMNS; c++) {
             const x2 = x1 + constants.GRID_POSITION_WIDTH - 1;
             const bounds = {'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2};
             if(utils.isMousePosWithinBounds(mousePos, bounds)) return {'row': r, 'column': c}
@@ -234,14 +233,14 @@ function getDrawingOriginFromGridPosition(gridPosition) {
 }
 
 function drawInitialSprites() {
-    const startImage = sprites.startingMainViews[data.getFocusedMonthTheme()];
+    const startImage = sprites.startingMainViews[data.getRewardsTheme()];
     utils.drawImageOnCanvas(bgCanvasContext, startImage, 0, 0);
-    for(let r = 0; r < data.SHELF_ROWS; r++) {
-        for(let c = 0; c < data.SHELF_COLUMNS; c++) {
-            if(!data.isShelfPositionEmpty(r, c)) {
-                const plantID = data.getFocusedMonthPlantType(r, c);
-                const colorID = data.getFocusedMonthColorType(r, c);
-                const plantCanvasCtx = (plantID === data.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+    for(let r = 0; r < constants.SHELF_ROWS; r++) {
+        for(let c = 0; c < constants.SHELF_COLUMNS; c++) {
+            if(!data.isRewardsPositionEmpty(r, c)) {
+                const plantID = data.getRewardsPlantID(r, c);
+                const colorID = data.getRewardsColorID(r, c);
+                const plantCanvasCtx = (plantID === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
                 drawPlant(plantCanvasCtx, {'row': r, 'column': c}, colorID, plantID);
             }
         }

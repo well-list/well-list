@@ -1,16 +1,15 @@
 import { initializeMainBanner } from "./main-banner.js";
 import { initializeTaskSection } from "./tasks.js";
-import { loadRewardsSection } from "./rewards-section.js";
+import { updateRewardsSection } from "./rewards-section.js";
+import * as data from "../data-access/data-access.js";
 
-const focusedDate = new Date();
+initializeMainBanner(data.getFocusedDate());
+updateRewardsSection();
 
-initializeMainBanner(focusedDate);
-loadRewardsSection(focusedDate);
+// export function handleDateChange() {
 
-export function handleDateChange() {
+// }
 
-}
-
-function handleMonthChange() {
+// function handleMonthChange() {
     
-}
+// }

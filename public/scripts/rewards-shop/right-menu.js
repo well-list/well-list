@@ -1,4 +1,4 @@
-import * as data from '../local-data.js';
+import * as data from '../data-access/data-access.js';
 import * as sprites from '../sprite-sources.js';
 import * as utils from '../utils.js';
 import * as constants from './right-menu-constants.js';
@@ -13,17 +13,17 @@ var textCanvasContext = null;
 var bgCanvas = null;
 var bgCanvasContext = null;
 
-var plantCardHovered = data.EMPTY_ID;
-var colorSelectionHovered = data.EMPTY_ID;
-var themeSelectionHovered = data.EMPTY_ID;
+var plantCardHovered = constants.EMPTY_ID;
+var colorSelectionHovered = constants.EMPTY_ID;
+var themeSelectionHovered = constants.EMPTY_ID;
 
 var drawnCostOnTextCanvas = false;
 var drawnBudgetOnTextCanvas = false;
 
 export function initializeRightMenu() {
-    plantCardHovered = data.EMPTY_ID;
-    colorSelectionHovered = data.EMPTY_ID;
-    themeSelectionHovered = data.EMPTY_ID;
+    plantCardHovered = constants.EMPTY_ID;
+    colorSelectionHovered = constants.EMPTY_ID;
+    themeSelectionHovered = constants.EMPTY_ID;
 
     if(!IS_INITIALIZED) {
         IS_INITIALIZED = true;
@@ -73,7 +73,7 @@ function handleCanvasHover(event) {
     for(let themeID = 0; themeID < themeSelectionBounds.length; themeID++) {
         if(utils.isMousePosWithinBounds(mousePos, themeSelectionBounds[themeID])) {
             if(themeSelectionHovered !== themeID) clearAnyHoverChanges();
-            if(themeID === data.getFocusedMonthTheme()) return;
+            if(themeID === data.getRewardsTheme()) return;
             if(themeSelectionHovered !== themeID) handleThemeSelectionHovered(themeID);
             return;
         }
@@ -90,7 +90,7 @@ function handleCanvasMouseDown(event) {
         if(utils.isMousePosWithinBounds(mousePos, plantCardBounds[plantID])) {
             if(data.getSelectedPlant() !== plantID) handlePlantCardSelected(plantID);
             else {
-                handlePlantCardUnselected(plantID, data.MOVE_SELECTION_MODE);
+                handlePlantCardUnselected(plantID, constants.MOVE_SELECTION_MODE);
                 handlePlantCardHovered(plantID);
             }
             return;
@@ -100,8 +100,8 @@ function handleCanvasMouseDown(event) {
     const selectionModeButtonBounds = constants.CANVAS_SELECTION_MODE_BOUNDS;
     for(let selectionMode = 0; selectionMode < selectionModeButtonBounds.length; selectionMode++) {
         if(utils.isMousePosWithinBounds(mousePos, selectionModeButtonBounds[selectionMode])) {
-            if(selectionMode !== data.BUY_SELECTION_MODE) {
-                if(data.getSelectionMode() === data.BUY_SELECTION_MODE && data.getSelectedPlant() != data.EMPTY_ID) {
+            if(selectionMode !== constants.BUY_SELECTION_MODE) {
+                if(data.isBuySelectionMode() && data.isPlantSelected()) {
                     handlePlantCardUnselected(data.getSelectedPlant(), selectionMode);
                 }
                 else { handleSelectionModeChange(selectionMode); }
@@ -120,7 +120,7 @@ function handleCanvasMouseDown(event) {
     const themeSelectionBounds = constants.CANVAS_THEME_SELECTION_BOUNDS;
     for(let themeID = 0; themeID < themeSelectionBounds.length; themeID++) {
         if(utils.isMousePosWithinBounds(mousePos, themeSelectionBounds[themeID])) {
-            if(themeID !== data.getFocusedMonthTheme()) handleThemeSelected(themeID);
+            if(themeID !== data.getRewardsTheme()) handleThemeSelected(themeID);
             return;
         }
     }
@@ -147,25 +147,25 @@ function handleThemeSelectionHovered(themeID) {
 
 function handleThemeSelected(themeID) {
     drawSelectedThemeSelectionOutline(themeID);
-    resetArea(constants.CANVAS_THEME_SELECTION_BOUNDS[data.getFocusedMonthTheme()]);
-    data.setFocusedMonthTheme(themeID);
+    resetArea(constants.CANVAS_THEME_SELECTION_BOUNDS[data.getRewardsTheme()]);
+    data.setRewardsTheme(themeID);
     handleThemeChange();
 }
  
 function handlePlantCardSelected(plantID) {
-    if(data.getSelectedPlant() !== data.EMPTY_ID) resetPlantCard(data.getSelectedPlant());
-    drawPlantCostLabel(data.getPlantCost(plantID, data.getSelectedPlantColor()));
-    plantCardHovered = data.EMPTY_ID;
+    if(data.isPlantSelected()) resetPlantCard(data.getSelectedPlant());
+    drawPlantCostLabel(constants.PLANT_COSTS[plantID][data.getSelectedPlantColor()]);
+    plantCardHovered = constants.EMPTY_ID;
     data.setSelectedPlant(plantID);
     drawSelectedCard(plantID);
-    handleSelectionModeChange(data.BUY_SELECTION_MODE);
+    handleSelectionModeChange(constants.BUY_SELECTION_MODE);
 }
 
 function handlePlantCardUnselected(plantID, selectionMode) {
     resetPlantCard(plantID);
     drawPlantCostLabel(0);
     handleSelectionModeChange(selectionMode);
-    data.setSelectedPlant(data.EMPTY_ID);
+    data.setSelectedPlant(constants.EMPTY_ID);
 }
 
 function handleSelectionModeChange(selectionMode) {
@@ -181,21 +181,21 @@ function handleColorSelected(colorID) {
         drawPlantOnCard(plantID, colorID);
     }
     data.setSelectedPlantColor(colorID);
-    if(data.getSelectedPlant() !== data.EMPTY_ID) drawPlantCostLabel(data.getPlantCost(data.getSelectedPlant(), colorID));
+    if(data.isPlantSelected()) drawPlantCostLabel(constants.PLANT_COSTS[data.getSelectedPlant()][colorID]);
 }
 
 function clearAnyHoverChanges() {
-    if(plantCardHovered !== data.EMPTY_ID) {
+    if(plantCardHovered !== constants.EMPTY_ID) {
         resetPlantCard(plantCardHovered);
-        plantCardHovered = data.EMPTY_ID;
+        plantCardHovered = constants.EMPTY_ID;
     }
-    if(colorSelectionHovered !== data.EMPTY_ID) {
+    if(colorSelectionHovered !== constants.EMPTY_ID) {
         resetArea(constants.CANVAS_COLOR_SELECTION_BOUNDS[colorSelectionHovered]);
-        colorSelectionHovered = data.EMPTY_ID;
+        colorSelectionHovered = constants.EMPTY_ID;
     }
-    if(themeSelectionHovered !== data.EMPTY_ID) {
+    if(themeSelectionHovered !== constants.EMPTY_ID) {
         resetArea(constants.CANVAS_THEME_SELECTION_BOUNDS[themeSelectionHovered]);
-        themeSelectionHovered = data.EMPTY_ID;
+        themeSelectionHovered = constants.EMPTY_ID;
     }
 }
 
@@ -255,7 +255,7 @@ function drawSelectedCard(plantID) {
 
 function drawHoveredCard(plantID) {
     const cardDrawingCoordinates = constants.PLANT_CARD_DRAWING_COORDINATES[plantID];
-    const hoveredCardImage = sprites.plantCardsHover[data.getFocusedMonthTheme()][plantID];
+    const hoveredCardImage = sprites.plantCardsHover[data.getRewardsTheme()][plantID];
     utils.drawImageOnCanvas(uiCanvasContext, hoveredCardImage, cardDrawingCoordinates['x'], cardDrawingCoordinates['y']);
 }
 
@@ -298,24 +298,24 @@ function resetArea(bounds) {
 
 function resetPlantCard(plantID) {
     const cardDrawingCoordinates = constants.PLANT_CARD_DRAWING_COORDINATES[plantID];
-    const cardImage = sprites.plantCards[data.getFocusedMonthTheme()][plantID];
+    const cardImage = sprites.plantCards[data.getRewardsTheme()][plantID];
     utils.drawImageOnCanvas(uiCanvasContext, cardImage, cardDrawingCoordinates['x'], cardDrawingCoordinates['y']);
 }
 
 function drawInitialSprites() {
-    const startImage = sprites.startingRightMenus[data.getFocusedMonthTheme()];
+    const startImage = sprites.startingRightMenus[data.getRewardsTheme()];
     utils.drawImageOnCanvas(bgCanvasContext, startImage, 0, 0);
     for(let plantID = 0; plantID < constants.NUM_PLANTS; plantID++) {
         if(plantID === data.getSelectedPlant()) continue;
         resetPlantCard(plantID);
     }
-    if(data.getSelectedPlant() === data.EMPTY_ID) drawPlantCostLabel(0);
-    drawPointsBudgetLabel(data.getPointsForFocusedMonth());
-    if(data.getSelectionMode() === data.MOVE_SELECTION_MODE) drawSelectedSelectionModeButton(data.MOVE_SELECTION_MODE);
+    drawPlantCostLabel(0);
+    drawPointsBudgetLabel(data.getRewardsPoints());
+    if(data.isMoveSelectionMode()) drawSelectedSelectionModeButton(constants.MOVE_SELECTION_MODE);
 }
 
 export function updatePointsLabel() {
-    drawPointsBudgetLabel(data.getPointsForFocusedMonth());
+    drawPointsBudgetLabel(data.getRewardsPoints());
 }
 
 export function clearContent() {

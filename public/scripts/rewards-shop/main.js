@@ -1,4 +1,4 @@
-import * as data from '../local-data.js';
+import * as data from '../data-access/data-access.js';
 import * as leftMenu from './left-menu.js';
 import * as mainView from './main-view.js';
 import * as rightMenu from './right-menu.js';
@@ -8,7 +8,6 @@ document.getElementById("shop-button").addEventListener('click', () => {
 });
 
 function handleStart() {
-    data.initializeDefaultRewardsData();
     leftMenu.initializeLeftMenu();
     mainView.initializeMainView();
     rightMenu.initializeRightMenu();
@@ -16,7 +15,7 @@ function handleStart() {
 }
 
 function resetViews() {
-    data.clearSelectedSettings();
+    data.resetSelectedSettings();
     leftMenu.clearContent();
     mainView.clearContent();
     rightMenu.clearContent();
@@ -25,9 +24,13 @@ function resetViews() {
 export function handleRewardsScreenExit() {
     document.getElementById('rewards-view-container').style.display = 'none';
     resetViews();
+    data.setFocusedMonth(data.getFocusedDate());
 }
 
 export function handleMonthChange(isNext) {
+    if(isNext) data.changeToNextMonth();
+    else data.changeToPreviousMonth();
+
     const ANIMATION_DURATION_MS = 375;
     const rewardsCanvasContainer = document.getElementById('rewards-canvas-container');
     if(isNext) rewardsCanvasContainer.style.animation = `rewards-view-slide-out-left ${ANIMATION_DURATION_MS}ms ease-out 0s 1 forwards`;

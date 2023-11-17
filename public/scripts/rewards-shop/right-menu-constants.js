@@ -1,3 +1,12 @@
+import * as constants from '../../constants.js';
+
+export const PLANT_COSTS = constants.PLANT_COSTS;
+export const EMPTY_ID = constants.EMPTY_ID;
+
+export const MOVE_SELECTION_MODE = constants.MOVE_SELECTION_MODE;
+export const SELL_SELECTION_MODE = constants.SELL_SELECTION_MODE;
+export const BUY_SELECTION_MODE = constants.BUY_SELECTION_MODE;
+
 // bounds used for determing selected areas hover and mouse down events
 
 // array position corresponds to selection mode

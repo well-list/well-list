@@ -55,9 +55,9 @@ export function isMousePosWithinBounds(mousePos, bounds) {
 }
 
 export function getMonthString(date) {
-    return `${current_date.getFullYear()}-${current_date.getMonth() + 1}`
+    return `${date.getFullYear()}-${date.getMonth() + 1}`
 }
 
 export function getDateString(date) {
-    return `${current_date.getFullYear()}-${current_date.getMonth() + 1}-${current_date.getDate()}`
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 }

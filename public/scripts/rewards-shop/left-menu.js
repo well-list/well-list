@@ -1,4 +1,4 @@
-import * as data from '../local-data.js';
+import * as data from '../data-access/data-access.js';
 import * as sprites from '../sprite-sources.js';
 import * as utils from '../utils.js';
 import * as constants from './left-menu-constants.js';
@@ -71,11 +71,9 @@ function handleCanvasMouseDown(event) {
         handleRewardsScreenExit();
     }
     else if(utils.isMousePosWithinBounds(mousePos, nextButtonBounds)) {
-        data.changeToNextMonth();
         handleMonthChange(true);
     }
     else if(utils.isMousePosWithinBounds(mousePos, previousButtonBounds)) {
-        data.changeToPreviousMonth();
         handleMonthChange(false);
     }
 }
@@ -86,7 +84,7 @@ function handleCanvasMouseLeave() {
 
 function handleButtonHover(buttonImage, buttonDrawingCoordinates) {
     clearAnyHoverChanges();
-    const backgroundColor = constants.THEME_BACKGROUND_COLORS[data.getFocusedMonthTheme()];
+    const backgroundColor = constants.THEME_BACKGROUND_COLORS[data.getRewardsTheme()];
     const x = buttonDrawingCoordinates['x'];
     const y = buttonDrawingCoordinates['y'];
     utils.drawLineOnCanvas(uiCanvasContext, backgroundColor, x, y, x + constants.BUTTON_WIDTH, y);
@@ -115,7 +113,7 @@ function clearAnyHoverChanges() {
 }
 
 function handleButtonHoverLeave(buttonImage, buttonDrawingCoordinates, buttonBounds) {
-    const backgroundColor = constants.THEME_BACKGROUND_COLORS[data.getFocusedMonthTheme()];
+    const backgroundColor = constants.THEME_BACKGROUND_COLORS[data.getRewardsTheme()];
     const x = buttonDrawingCoordinates['x'];
     const y = buttonDrawingCoordinates['y'];
     const xLineEnd = buttonBounds['x2']
@@ -125,19 +123,19 @@ function handleButtonHoverLeave(buttonImage, buttonDrawingCoordinates, buttonBou
 }
 
 function drawMonthAndYearMarkers() {
-    const focusedMonthDate = data.getFocusedMonth();
-    const month = parseInt(focusedMonthDate.split('-')[0]);
+    const focusedMonth = data.getFocusedMonth();
+    const month = parseInt(focusedMonth.split('-')[1]);
     const monthMarkerX = constants.DRAWING_COORDINATES[constants.MONTH_MARKER]['x'];
     const monthMarkerY = constants.DRAWING_COORDINATES[constants.MONTH_MARKER]['y'];
     utils.drawImageOnCanvas(uiCanvasContext, sprites.monthMarkers[month-1], monthMarkerX, monthMarkerY);
-    const year = focusedMonthDate.split('-')[1];
+    const year = parseInt(focusedMonth.split('-')[0]);
     const yearMarkerX = constants.DRAWING_COORDINATES[constants.YEAR_MARKER]['x'];
     const yearMarkerY = constants.DRAWING_COORDINATES[constants.YEAR_MARKER]['y'];
     utils.drawImageOnCanvas(uiCanvasContext, sprites.yearMarkers[year], yearMarkerX, yearMarkerY);
 }
 
 function drawInitialSprites() {
-    const startImage = sprites.startingLeftMenus[data.getFocusedMonthTheme()];
+    const startImage = sprites.startingLeftMenus[data.getRewardsTheme()];
     utils.drawImageOnCanvas(bgCanvasContext, startImage, 0, 0);
     drawMonthAndYearMarkers();
 }
