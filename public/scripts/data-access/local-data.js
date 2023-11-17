@@ -1,4 +1,4 @@
-import * as constants from '../../constants.js';
+import * as constants from '../constants.js';
 
 var TASK_COLLECTION = [];
 var REWARDS_COLLECTION = [];

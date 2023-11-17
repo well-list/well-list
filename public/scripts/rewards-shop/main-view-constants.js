@@ -1,4 +1,4 @@
-import * as constants from '../../constants.js';
+import * as constants from '../constants.js';
 
 export const VINE_PATHOS_ID = constants.VINE_PATHOS_ID;
 export const SHELF_ROWS = constants.SHELF_ROWS;

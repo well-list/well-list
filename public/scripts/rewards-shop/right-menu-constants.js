@@ -1,4 +1,4 @@
-import * as constants from '../../constants.js';
+import * as constants from '../constants.js';
 
 export const PLANT_COSTS = constants.PLANT_COSTS;
 export const EMPTY_ID = constants.EMPTY_ID;

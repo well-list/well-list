@@ -1,6 +1,6 @@
 import * as sprites from '../sprite-sources.js';
 import * as data from "../data-access/data-access.js";
-import * as constants from "../../constants.js";
+import * as constants from "../constants.js";
 import * as utils from "../utils.js";
 import * as mvConstants from "../rewards-shop/main-view-constants.js";
 
@@ -22,7 +22,6 @@ function drawRewardsSprites(themeID) {
         ctx.drawImage(img,0,0);
         drawRewardsSectionPlants(ctx);
     };
-    // temporary to get idea down
     img.src = sprites.rewardsSectionBackground[themeID];
 }
 

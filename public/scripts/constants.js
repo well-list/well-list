@@ -31,6 +31,15 @@ export const MOVE_SELECTION_MODE = 0;
 export const SELL_SELECTION_MODE = 1;
 export const BUY_SELECTION_MODE = 2;
 
+export const HIGH_PRIORITY = "high";
+export const MEDIUM_PRIORITY = "medium";
+export const LOW_PRIORITY = "low";
+export const PRIORITIES = [HIGH_PRIORITY, MEDIUM_PRIORITY, LOW_PRIORITY];
+export const TASK_LIMITS = {}
+TASK_LIMITS[HIGH_PRIORITY] = 2;
+TASK_LIMITS[MEDIUM_PRIORITY] = 3;
+TASK_LIMITS[LOW_PRIORITY] = 5;
+
 // Data Keys
 export const TASK_ID = "_id";
 export const USERNAME = "username";

@@ -1,4 +1,4 @@
-import * as constants from '../../constants.js';
+import * as constants from '../constants.js';
 import * as utils from '../utils.js';
 
 // TODO: implement remote data to work with database and switch implmentation
