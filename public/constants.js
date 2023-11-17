@@ -1,4 +1,4 @@
-export const DEFAULT_THEME = 1;
+export const DEFAULT_THEME = 3;
 export const DEFAULT_POINTS = 9999;
 export const DEFAULT_SELECTION_MODE = 0;
 export const DEFAULT_SELECTED_PLANT = -1;

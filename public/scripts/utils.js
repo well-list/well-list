@@ -61,3 +61,13 @@ export function getMonthString(date) {
 export function getDateString(date) {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 }
+
+export function padLeadingZeros(number, length) {
+    const numberText = number.toString();
+    let zeros = "";
+    // pad with beginning zeros
+    for(let i = 0; i < length - numberText.length; i++) {
+        zeros += "0";
+    };
+    return zeros + numberText;
+}

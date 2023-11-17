@@ -6,6 +6,7 @@ export const SHELF_COLUMNS = constants.SHELF_COLUMNS;
 
 // used for determing selected shelf grid position on hover and mouse down events
 export const SHELF_GRID_OFFSET = {'x': 6, 'y': 6};
+export const REWARDS_SECTION_SHELF_GRID_OFFSET = {'x': 297, 'y': 17};
 export const GRID_POSITION_SPACING = {'horizontal': 1, 'vertical': 3}
 export const GRID_POSITION_WIDTH = 36;
 export const GRID_POSITION_HEIGHT = 67;

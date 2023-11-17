@@ -2,6 +2,7 @@ import * as data from '../data-access/data-access.js';
 import * as leftMenu from './left-menu.js';
 import * as mainView from './main-view.js';
 import * as rightMenu from './right-menu.js';
+import * as rewardsSection from '../home-page/rewards-section.js';
 
 document.getElementById("shop-button").addEventListener('click', () => {
     handleStart();
@@ -25,6 +26,7 @@ export function handleRewardsScreenExit() {
     document.getElementById('rewards-view-container').style.display = 'none';
     resetViews();
     data.setFocusedMonth(data.getFocusedDate());
+    rewardsSection.updateRewardsSection();
 }
 
 export function handleMonthChange(isNext) {
