@@ -8,8 +8,12 @@ export function updateRewardsSection() {
     const month = data.getFocusedDate().toLocaleString('default', { month: 'long' });
     document.getElementById('reward-section-header').innerHTML = `${month} Rewards`;
     drawRewardsSprites(data.getRewardsTheme());
-    document.getElementById('points-earned-label').innerHTML = utils.padLeadingZeros(data.getRewardsPoints(), 5);
+    updatePointsEarnedLabel();
     document.getElementById('points-spent-label').innerHTML = utils.padLeadingZeros(getPointsSpent(), 5);
+}
+
+export function updatePointsEarnedLabel() {
+    document.getElementById('points-earned-label').innerHTML = utils.padLeadingZeros(data.getRewardsPoints(), 5);
 }
 
 function drawRewardsSprites(themeID) {

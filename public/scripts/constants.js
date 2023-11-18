@@ -39,11 +39,16 @@ export const TASK_LIMITS = {}
 TASK_LIMITS[HIGH_PRIORITY] = 2;
 TASK_LIMITS[MEDIUM_PRIORITY] = 3;
 TASK_LIMITS[LOW_PRIORITY] = 5;
+export const TASK_REWARDS = {};
+TASK_REWARDS[HIGH_PRIORITY] = 100;
+TASK_REWARDS[MEDIUM_PRIORITY] = 50;
+TASK_REWARDS[LOW_PRIORITY] = 25;
 
 // Data Keys
 export const TASK_ID = "_id";
 export const USERNAME = "username";
 export const PRIORITY = "priority";
+export const ORDER = "order";
 export const DATE = "date";
 export const DESCRIPTION = "description";
 export const COMPLETED = "completed";

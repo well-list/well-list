@@ -83,13 +83,24 @@ export function setRewardsTheme(theme_id, username, month) {
 }
 
 export function addNewTask(task_id, order, username, priority, description, date) {
-    taskElement = createTaskElement(task_id, order, username, priority, description, date);
+    const taskElement = createTaskElement(task_id, order, username, priority, description, date);
     TASK_COLLECTION.push(taskElement);
 }
 
-export function updateTaskCompleteStatus(task_id, isCompleted) {
+export function updateTaskCompleteStatus(task_id, isCompleted, username, month) {
     const taskIndex = getElementIndex(TASK_COLLECTION, [constants.TASK_ID], [task_id]);
     TASK_COLLECTION[taskIndex][constants.COMPLETED] = isCompleted;
+    const taskPriority = TASK_COLLECTION[taskIndex][constants.PRIORITY];
+
+    const rewardsElementIndex = getElementIndex(
+        REWARDS_COLLECTION,
+        [constants.USERNAME, constants.MONTH],
+        [username, month]
+    );
+    let pointChange = constants.TASK_REWARDS[taskPriority];
+    if(!isCompleted) { pointChange *= -1; }
+    const updatedPoints = REWARDS_COLLECTION[rewardsElementIndex][constants.POINTS] + pointChange;
+    REWARDS_COLLECTION[rewardsElementIndex][constants.POINTS] = updatedPoints;
 }
 
 export function removeTask(task_id) {
@@ -148,24 +159,24 @@ function isPositionFree(rewardsElement, row, column) {
 
 function createTaskElement(task_id, order, username, priority, description, date) {
     const task = {};
-    task[`${constants.TASK_ID}`] = task_id;
-    task[`${constants.ORDER}`] = order;
-    task[`${constants.USERNAME}`] = username;
-    task[`${constants.PRIORITY}`] = priority;
-    task[`${constants.DESCRIPTION}`] = description;
-    task[`${constants.DATE}`] = date;
+    task[constants.TASK_ID] = task_id;
+    task[constants.ORDER] = order;
+    task[constants.USERNAME] = username;
+    task[constants.PRIORITY] = priority;
+    task[constants.DESCRIPTION] = description;
+    task[constants.DATE] = date;
     return task;
 }
 
 function createDefaultRewardsElement(username, month) {
     const defaultRewards = {};
-    defaultRewards[`${constants.USERNAME}`] = username;
-    defaultRewards[`${constants.MONTH}`] = month;
-    defaultRewards[`${constants.POINTS}`] = constants.DEFAULT_POINTS;
-    defaultRewards[`${constants.THEME}`] = constants.DEFAULT_THEME;
+    defaultRewards[constants.USERNAME] = username;
+    defaultRewards[constants.MONTH] = month;
+    defaultRewards[constants.POINTS] = constants.DEFAULT_POINTS;
+    defaultRewards[constants.THEME] = constants.DEFAULT_THEME;
     const [plant_ids, color_ids] = getEmptyShelfData()
-    defaultRewards[`${constants.PLANT_IDS}`] = plant_ids;
-    defaultRewards[`${constants.COLOR_IDS}`] = color_ids;
+    defaultRewards[constants.PLANT_IDS] = plant_ids;
+    defaultRewards[constants.COLOR_IDS] = color_ids;
     return defaultRewards;
 }
 

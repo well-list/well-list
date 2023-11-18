@@ -1,6 +1,7 @@
 import * as constants from "../constants.js";
 import * as data from "../data-access/data-access.js";
 import { createElement, uuidv4 } from "../utils.js";
+import { updatePointsEarnedLabel } from "./rewards-section.js";
 
 var EDIT_MENU_IN_FOCUS = null; // null or priority
 var ADDED_TASKS_BY_PRIORITY = {}; // list of added taskIDs
@@ -38,34 +39,24 @@ function updateCompletedStatusLabel(priority) {
 }
 
 function handleAddTaskButtonPressed(priority) {
-    if (EDIT_MENU_IN_FOCUS) {
-        removeEditControlsElement()
-    }
+    if (EDIT_MENU_IN_FOCUS) { removeEditControlsElement() }
     const taskContainer = document.getElementById(`${priority}-priority-tasks-container`);
-    if (ADDED_TASKS_BY_PRIORITY[priority].length === 0) {
-        taskContainer.replaceChildren();
-    }
-    taskContainer.appendChild(
-        getEditControlsElement(null, priority)
-    );
+    if (ADDED_TASKS_BY_PRIORITY[priority].length === 0) { taskContainer.replaceChildren(); }
+    taskContainer.appendChild(getEditControlsElement(null, priority));
     document.getElementById('edit-task-text-area').focus();
     EDIT_MENU_IN_FOCUS = priority;
 }
 
 function handleTaskCompletedChange(taskID, isCompleted, priority) {
-    if(isCompleted) {
-        COMPLETED_TASKS_BY_PRIORITY[priority].push(taskID);
-    }
-    else {
-        COMPLETED_TASKS_BY_PRIORITY[priority].splice(COMPLETED_TASKS_BY_PRIORITY[priority].indexOf(taskID), 1);
-    }
+    if(isCompleted) { COMPLETED_TASKS_BY_PRIORITY[priority].push(taskID); }
+    else { COMPLETED_TASKS_BY_PRIORITY[priority].splice(COMPLETED_TASKS_BY_PRIORITY[priority].indexOf(taskID), 1); }
     updateCompletedStatusLabel(priority);
+    data.updateTaskCompleteStatus(taskID, isCompleted);
+    updatePointsEarnedLabel();
 }
 
 function handleEditButtonPressed(taskID, description, priority) {
-    document.getElementById(taskID).replaceWith(
-        getEditControlsElement(taskID, priority)
-    );
+    document.getElementById(taskID).replaceWith(getEditControlsElement(taskID, priority));
     document.getElementById('edit-task-text-area').value = description;
     EDIT_MENU_IN_FOCUS = priority;
 }
@@ -73,47 +64,59 @@ function handleEditButtonPressed(taskID, description, priority) {
 function handleSaveTaskButtonPressed(taskID, priority) {
     const isNewTask = taskID === null;
     const description = document.getElementById('edit-task-text-area').value;
-
+    EDIT_MENU_IN_FOCUS = null;
     if(isNewTask) { taskID = uuidv4(); }
+
     document.getElementById('edit-controls-container').replaceWith(
         getTaskElement(taskID, description, priority)
     );
-    EDIT_MENU_IN_FOCUS = null;
-    if(isNewTask) {
-        ADDED_TASKS_BY_PRIORITY[priority].push(taskID);
-        if(ADDED_TASKS_BY_PRIORITY[priority].length === constants.TASK_LIMITS[priority]) {
-            const addButtonID = `${priority}-priority-add-task-button`;
-            document.getElementById(addButtonID).style.display = 'none';
-        }
-    }
-    else if(COMPLETED_TASKS_BY_PRIORITY[priority].includes(taskID)) {
-        console.log(COMPLETED_TASKS_BY_PRIORITY)
+    if(COMPLETED_TASKS_BY_PRIORITY[priority].includes(taskID)) {
         document.getElementById(`${taskID}-checkbox`).checked = true;
     }
-    updateCompletedStatusLabel(priority);
+
+    if(isNewTask) { handleTaskAdded(taskID, description, priority); }
+    else { handleDescriptionUpdated(taskID, description); }
 }
 
 function handleCancelTaskButtonPressed(taskID, priority) {
     document.getElementById(`${priority}-priority-add-task-button`).style.display = 'block';
+    EDIT_MENU_IN_FOCUS = null;
     if (taskID == null) {
-        removeEditControlsElement();
-        EDIT_MENU_IN_FOCUS = null;
+        removeEditControlsElement(priority);
         return;
     }
+    handleTaskDeleted(taskID, priority);
+}
+
+function handleDescriptionUpdated(taskID, description) {
+    data.updateTaskDescription(taskID, description);
+}
+
+function handleTaskAdded(taskID, description, priority) {
+    ADDED_TASKS_BY_PRIORITY[priority].push(taskID);
+    if(ADDED_TASKS_BY_PRIORITY[priority].length === constants.TASK_LIMITS[priority]) {
+        const addButtonID = `${priority}-priority-add-task-button`;
+        document.getElementById(addButtonID).style.display = 'none';
+    }
+    const order = ADDED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
+    data.addNewTask(taskID, order, priority, description);
+    updateCompletedStatusLabel(priority);
+}
+
+function handleTaskDeleted(taskID, priority) {
     const addedIdx = ADDED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
     if (addedIdx !== -1) ADDED_TASKS_BY_PRIORITY[priority].splice(addedIdx, 1);
     const completedIdx = COMPLETED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
     if (completedIdx !== -1) COMPLETED_TASKS_BY_PRIORITY[priority].splice(completedIdx, 1);
-    removeEditControlsElement();
+    removeEditControlsElement(priority);
     updateCompletedStatusLabel(priority);
-    EDIT_MENU_IN_FOCUS = null;
-    // handle task deleted
+    data.removeTask(taskID);
 }
 
-function removeEditControlsElement() {
+function removeEditControlsElement(priority) {
     const editContainer = document.getElementById('edit-controls-container');
-    if(EDIT_MENU_IN_FOCUS !== null && ADDED_TASKS_BY_PRIORITY[EDIT_MENU_IN_FOCUS].length === 0) {
-        const priority_label = EDIT_MENU_IN_FOCUS.charAt(0).toUpperCase() + EDIT_MENU_IN_FOCUS.slice(1);
+    if(ADDED_TASKS_BY_PRIORITY[priority].length === 0) {
+        const priority_label = priority.charAt(0).toUpperCase() + priority.slice(1);
         editContainer.parentElement.appendChild(
             createElement('div', ['class'], ['no-tasks-label'], `No ${priority_label} Priority Tasks Yet`)
         );

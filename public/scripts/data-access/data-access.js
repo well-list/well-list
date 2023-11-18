@@ -134,25 +134,25 @@ export function movePlant(originRow, originColumn, destinationRow, destinationCo
     return data_connection.movePlant(originRow, originColumn, destinationRow, destinationColumn, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
-export function setRewardsTheme(theme_id) {
+export function setRewardsTheme(themeID) {
     CACHED_REWARDS_DATA = null;
-    return data_connection.setRewardsTheme(theme_id, LOGGED_IN_USER, FOCUSED_MONTH);
+    return data_connection.setRewardsTheme(themeID, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
-export function addNewTask(task_id, order, username, priority, description) {
-    return data_connection.addNewTask(task_id, order, username, priority, description, FOCUSED_DATE_STRING);
+export function addNewTask(taskID, order, priority, description) {
+    return data_connection.addNewTask(taskID, order, LOGGED_IN_USER, priority, description, FOCUSED_DATE_STRING);
 }
 
-export function updateTaskCompleteStatus(task_id, isCompleted) {
-    return data_connection.updateTaskCompleteStatus(task_id, isCompleted);
+export function updateTaskCompleteStatus(taskID, isCompleted) {
+    return data_connection.updateTaskCompleteStatus(taskID, isCompleted, LOGGED_IN_USER, FOCUSED_MONTH);
 }
 
-export function removeTask(task_id) {
-    return data_connection.removeTask(task_id);
+export function removeTask(taskID) {
+    return data_connection.removeTask(taskID);
 }
 
-export function updateTaskDescription(task_id, description) {
-    return data_connection.updateTaskDescription(task_id, description);
+export function updateTaskDescription(taskID, description) {
+    return data_connection.updateTaskDescription(taskID, description);
 }
 
 export function clearTasks() {
