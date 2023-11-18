@@ -8,15 +8,44 @@ var ADDED_TASKS_BY_PRIORITY = {}; // list of added taskIDs
 var COMPLETED_TASKS_BY_PRIORITY = {}; // list of completed taskIDs
 
 export function initializeTaskSection() {
-    resetTaskCounters();
+    loadPriorityTasksElements(data.getTasks());
     for(let i = 0; i < constants.PRIORITIES.length; i++) {
         initializePrioritySection(constants.PRIORITIES[i]);
     }
-    loadPriorityTasksElements(data.getTasks());
 }
 
 export function loadPriorityTasksElements(tasks) {
     resetTaskCounters();
+    tasks.sort(function(a,b){ 
+        var x = a[constants.ORDER] < b[constants.ORDER] ? -1:1; 
+        return x; 
+    });
+    for(let i = 0; i < constants.PRIORITIES.length; i++) {
+        document.getElementById(`${constants.PRIORITIES[i]}-priority-tasks-container`).replaceChildren()
+    }
+    for(let i = 0; i < tasks.length; i++) {
+        const taskID = tasks[i][constants.TASK_ID];
+        const priority = tasks[i][constants.PRIORITY];
+        const description = tasks[i][constants.DESCRIPTION];
+        const isCompleted = tasks[i][constants.TASK_ID];
+        document.getElementById(`${priority}-priority-tasks-container`).appendChild(
+            getTaskElement(taskID, description, priority)
+        );
+        ADDED_TASKS_BY_PRIORITY[priority].push(taskID);
+        if(isCompleted) {
+            COMPLETED_TASKS_BY_PRIORITY[priority].push(taskID);
+            document.getElementById(`${taskID}-checkbox`).checked = true;
+        }
+    }
+    for(let i = 0; i < constants.PRIORITIES.length; i++) {
+        updateCompletedStatusLabel(constants.PRIORITIES[i])
+        if(ADDED_TASKS_BY_PRIORITY[constants.PRIORITIES[i]].length === 0) {
+            const priority_label = constants.PRIORITIES[i].charAt(0).toUpperCase() + constants.PRIORITIES[i].slice(1);
+            document.getElementById(`${constants.PRIORITIES[i]}-priority-tasks-container`).appendChild(
+                createElement('div', ['class'], ['no-tasks-label'], `No ${priority_label} Priority Tasks Yet`)
+            );
+        }
+    }
 }
 
 function initializePrioritySection(priority) {
@@ -39,7 +68,7 @@ function updateCompletedStatusLabel(priority) {
 }
 
 function handleAddTaskButtonPressed(priority) {
-    if (EDIT_MENU_IN_FOCUS) { removeEditControlsElement() }
+    if (EDIT_MENU_IN_FOCUS) { removeEditControlsElement(); }
     const taskContainer = document.getElementById(`${priority}-priority-tasks-container`);
     if (ADDED_TASKS_BY_PRIORITY[priority].length === 0) { taskContainer.replaceChildren(); }
     taskContainer.appendChild(getEditControlsElement(null, priority));

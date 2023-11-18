@@ -20,12 +20,18 @@ export function setLoggedInUser(username) {
     LOGGED_IN_USER = username;
 }
 
+export function getLoggedInUser() {
+    return LOGGED_IN_USER;
+}
+
 export function changeToNextDay() {
     FOCUSED_DATE.setDate(FOCUSED_DATE.getDate()+1);
+    FOCUSED_DATE_STRING = utils.getDateString(FOCUSED_DATE);
 }
 
 export function changeToPreviousDay() {
     FOCUSED_DATE.setDate(FOCUSED_DATE.getDate()-1);
+    FOCUSED_DATE_STRING = utils.getDateString(FOCUSED_DATE);
 }
 
 export function getFocusedDate() {
@@ -167,7 +173,7 @@ export function addTasks(tasks) {
 
 // gets all tasks for focused day
 export function getTasks() {
-    return data_connection.getTasks(FOCUSED_DATE_STRING);
+    return data_connection.getTasks(LOGGED_IN_USER, FOCUSED_DATE_STRING);
 }
 
 // gets rewards data for focused month
