@@ -27,7 +27,7 @@ export function loadPriorityTasksElements(tasks) {
         const taskID = tasks[i][constants.TASK_ID];
         const priority = tasks[i][constants.PRIORITY];
         const description = tasks[i][constants.DESCRIPTION];
-        const isCompleted = tasks[i][constants.TASK_ID];
+        const isCompleted = tasks[i][constants.COMPLETED];
         document.getElementById(`${priority}-priority-tasks-container`).appendChild(
             getTaskElement(taskID, description, priority)
         );
