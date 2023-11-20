@@ -8,7 +8,7 @@ export function handleLogin() {
         setMessageText('Please provide a password.');
     }
     else {
-        attemptLogin(username);
+        attemptLogin(username, password);
     }
 }
 
@@ -29,6 +29,7 @@ async function attemptLogin(username, password) {
 
         if (response.redirected) {
             handleLoginSuccess();
+            window.location.href = '/home';
         }
         else {
             /* This error is caused by incorrect username or password */
