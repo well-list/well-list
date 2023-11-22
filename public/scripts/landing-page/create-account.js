@@ -8,8 +8,38 @@ export function handleAccountCreation() {
         setMessageText('Please provide a password.');
     }
     else {
-        attemptAccountCreation(username, password);
+        const isPasswordStrong = checkPassword(password);
+
+        if(isPasswordStrong.length === 0) {
+            attemptAccountCreation(username, password);
+        } 
+        else {
+            const message = `Password is missing: ${isPasswordStrong.join(', ')}`;
+            setMessageText(message);
+        }
     }
+}
+
+function checkPassword(password) {
+    const missingRequirements = [];
+    
+    if (password.length < 8) {
+        missingRequirements.push('at least 8 characters');
+    }
+    if (!/[A-Z]/.test(password)) {
+        missingRequirements.push('at least 1 uppercase letter');
+    }
+    if (!/[a-z]/.test(password)) {
+        missingRequirements.push('at least 1 lowercase letter');
+    }
+    if (!/\d/.test(password)) {
+        missingRequirements.push('at least one digit');
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        missingRequirements.push('at least one special character');
+    }
+
+    return missingRequirements;
 }
 
 /* TODO: Get rid of the status errors with in try catch
