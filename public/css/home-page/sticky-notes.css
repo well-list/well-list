@@ -56,3 +56,18 @@ sticky-note#paste-sticky:hover {
     border-color: rgb(74, 190, 144);
     background-color: rgb(165, 243, 198);
 }
+
+sticky-note #sticky-option-container {
+    display: flex;
+    margin-left: 1.5vw;
+}
+
+.option-button {
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
+
+.option-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

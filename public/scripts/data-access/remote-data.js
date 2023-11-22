@@ -10,15 +10,19 @@ export function movePlant(originRow, originColumn, destinationRow, destinationCo
 
 }
 
+export function setRewardsTheme(theme_id, username, month) {
+
+}
+
 export function addNewTask(task_id, order, username, priority, description, date) {
 
 }
 
-export function updateTaskCompleteStatus(task_id, isCompleted) {
+export function updateTaskCompleteStatus(task_id, isCompleted, username, month) {
 
 }
 
-export function removeTask(task_id) {
+export function deleteTask(task_id) {
 
 }
 
@@ -26,15 +30,11 @@ export function updateTaskDescription(task_id, description) {
 
 }
 
-export function clearTasks(date) {
+export function clearTasks(username, date) {
 
 }
 
-export function addTasks(tasks, date) {
-
-}
-
-export function getTasks(date) {
+export function getTasks(username, date) {
 
 }
 

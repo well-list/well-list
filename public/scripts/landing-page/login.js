@@ -8,7 +8,7 @@ export function handleLogin() {
         setMessageText('Please provide a password.');
     }
     else {
-        attemptLogin(username);
+        attemptLogin(username, password);
     }
 }
 

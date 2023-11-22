@@ -6,23 +6,42 @@ import { updatePointsEarnedLabel } from "./rewards-section.js";
 var EDIT_MENU_IN_FOCUS = null; // null or priority
 var ADDED_TASKS_BY_PRIORITY = {}; // list of added taskIDs
 var COMPLETED_TASKS_BY_PRIORITY = {}; // list of completed taskIDs
+var FOCUSED_STICKY = null;
+var NO_SELECTED = false;
+var COPIED_TASKS = [];
 
 export function initializeTaskSection() {
+    EDIT_MENU_IN_FOCUS = null;
+    ADDED_TASKS_BY_PRIORITY = {};
+    COMPLETED_TASKS_BY_PRIORITY = {};
+    FOCUSED_STICKY = null;
+    NO_SELECTED = false;
+    COPIED_TASKS = [];
+
     loadPriorityTasksElements(data.getTasks());
     for(let i = 0; i < constants.PRIORITIES.length; i++) {
         initializePrioritySection(constants.PRIORITIES[i]);
+    }
+    const stickyTypes = ['clear', 'copy', 'paste'];
+    for(let i = 0; i < stickyTypes.length; i++) {
+        document.getElementById(`${stickyTypes[i]}-sticky`).addEventListener('click', () => {
+            handleStickySelected(stickyTypes[i]);
+        });
     }
 }
 
 export function loadPriorityTasksElements(tasks) {
     resetTaskCounters();
+    // sort tasks by order
     tasks.sort(function(a,b){ 
-        var x = a[constants.ORDER] < b[constants.ORDER] ? -1:1; 
+        let x = a[constants.ORDER] < b[constants.ORDER] ? -1:1; 
         return x; 
     });
+    // clear task containers
     for(let i = 0; i < constants.PRIORITIES.length; i++) {
         document.getElementById(`${constants.PRIORITIES[i]}-priority-tasks-container`).replaceChildren()
     }
+    // add tasks
     for(let i = 0; i < tasks.length; i++) {
         const taskID = tasks[i][constants.TASK_ID];
         const priority = tasks[i][constants.PRIORITY];
@@ -37,6 +56,7 @@ export function loadPriorityTasksElements(tasks) {
             document.getElementById(`${taskID}-checkbox`).checked = true;
         }
     }
+    // handle no tasks for priority category
     for(let i = 0; i < constants.PRIORITIES.length; i++) {
         updateCompletedStatusLabel(constants.PRIORITIES[i])
         if(ADDED_TASKS_BY_PRIORITY[constants.PRIORITIES[i]].length === 0) {
@@ -68,7 +88,7 @@ function updateCompletedStatusLabel(priority) {
 }
 
 function handleAddTaskButtonPressed(priority) {
-    if (EDIT_MENU_IN_FOCUS) { removeEditControlsElement(); }
+    if (EDIT_MENU_IN_FOCUS) { removeEditControlsElement(priority); }
     const taskContainer = document.getElementById(`${priority}-priority-tasks-container`);
     if (ADDED_TASKS_BY_PRIORITY[priority].length === 0) { taskContainer.replaceChildren(); }
     taskContainer.appendChild(getEditControlsElement(null, priority));
@@ -85,6 +105,7 @@ function handleTaskCompletedChange(taskID, isCompleted, priority) {
 }
 
 function handleEditButtonPressed(taskID, description, priority) {
+    if (EDIT_MENU_IN_FOCUS) { return; }
     document.getElementById(taskID).replaceWith(getEditControlsElement(taskID, priority));
     document.getElementById('edit-task-text-area').value = description;
     EDIT_MENU_IN_FOCUS = priority;
@@ -136,10 +157,11 @@ function handleTaskDeleted(taskID, priority) {
     const addedIdx = ADDED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
     if (addedIdx !== -1) ADDED_TASKS_BY_PRIORITY[priority].splice(addedIdx, 1);
     const completedIdx = COMPLETED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
-    if (completedIdx !== -1) COMPLETED_TASKS_BY_PRIORITY[priority].splice(completedIdx, 1);
+    if (completedIdx !== -1) { COMPLETED_TASKS_BY_PRIORITY[priority].splice(completedIdx, 1); }
     removeEditControlsElement(priority);
     updateCompletedStatusLabel(priority);
-    data.removeTask(taskID);
+    data.deleteTask(taskID);
+    updatePointsEarnedLabel();
 }
 
 function removeEditControlsElement(priority) {
@@ -151,6 +173,74 @@ function removeEditControlsElement(priority) {
         );
     }
     editContainer.remove();
+}
+
+function handleStickySelected(type) {
+    if(NO_SELECTED) {
+        NO_SELECTED = false;
+        return;
+    }
+
+    if (FOCUSED_STICKY !== null) {
+        resetSticky(FOCUSED_STICKY);
+    }
+
+    const sticky = document.getElementById(`${type}-sticky`);
+    sticky.replaceChildren();
+
+    const confirmLabel = createElement('div', [], [], 'Confirm');
+    const optionContainer = createElement('div', ['id'], ['sticky-option-container'], null);
+    const yesButton = createElement('div', ['class'], ['option-button'], 'Yes');
+    yesButton.addEventListener('click', () => {
+        if(type === 'clear') clearTasks();
+        if(type === 'copy') copyTasks();
+        if(type === 'paste') pasteTasks();
+        resetSticky(type);
+        NO_SELECTED = true;
+    });
+    const slashLabel = createElement('div', [], [], '/');
+    const noButton = createElement('div', ['class'], ['option-button'], 'No');
+    noButton.addEventListener('click', () => {
+        resetSticky(type);
+        NO_SELECTED = true;
+    });
+
+    sticky.appendChild(confirmLabel);
+    optionContainer.appendChild(yesButton);
+    optionContainer.appendChild(slashLabel);
+    optionContainer.appendChild(noButton);
+    sticky.appendChild(optionContainer);
+
+    FOCUSED_STICKY = type;
+}
+
+function clearTasks() {
+    data.clearTasks();
+    loadPriorityTasksElements(data.getTasks());
+    updatePointsEarnedLabel();
+}
+
+function copyTasks() {
+    COPIED_TASKS = data.getTasks();
+}
+
+function pasteTasks() {
+    for(let i = 0; i < COPIED_TASKS.length; i++) {
+        const taskID = uuidv4();
+        const priority = COPIED_TASKS[i][constants.PRIORITY];
+        const description = COPIED_TASKS[i][constants.DESCRIPTION];
+        ADDED_TASKS_BY_PRIORITY[priority].push(taskID);
+        const order = ADDED_TASKS_BY_PRIORITY[priority].indexOf(taskID);
+        data.addNewTask(taskID, order, priority, description);
+    }
+    loadPriorityTasksElements(data.getTasks());
+}
+
+function resetSticky(type) {
+    const sticky = document.getElementById(`${type}-sticky`);
+    const capitializedType = type.charAt(0).toUpperCase() + type.slice(1);
+    sticky.textContent = `${capitializedType} Tasks`;
+    FOCUSED_STICKY = null;
 }
 
 function getTaskElement(taskID, description, priority) {
