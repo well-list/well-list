@@ -18,6 +18,7 @@ var CACHED_REWARDS_DATA = null;
 
 export function setLoggedInUser(username) {
     LOGGED_IN_USER = username;
+    console.log(LOGGED_IN_USER);
 }
 
 export function getLoggedInUser() {

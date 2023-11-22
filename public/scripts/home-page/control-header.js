@@ -41,6 +41,7 @@ function handleDaySwitch(switchToPrevious, switchToNext) {
 
 function handleLogout() {
     console.log("Logout Button Pressed");
+    window.location.href = `/`;
 }
 
 function setUsernameLabel(username) {

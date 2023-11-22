@@ -29,7 +29,7 @@ async function attemptLogin(username, password) {
 
         if (response.redirected) {
             handleLoginSuccess();
-            window.location.href = '/home';
+            window.location.href = `/home?user=${username}`;
         }
         else {
             /* This error is caused by incorrect username or password */
