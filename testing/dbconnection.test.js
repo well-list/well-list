@@ -117,7 +117,6 @@ describe("Direct insertion and deletion to DB via schemas", () => {
         expect(queryResult).toEqual(null);
     });
 
-
     // the right side of the : in $pull is the value you're looking to remove (from array).
     // can set it equal to whatever is inside the line in the list we remove from in production
     // await users.updateOne(
