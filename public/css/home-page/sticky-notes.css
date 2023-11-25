@@ -1,0 +1,58 @@
+sticky-container {
+    margin-left: 5px;
+    width: calc(43vw - 15px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+
+sticky-note {
+    border-top: 2.8vw solid rgb(142, 142, 142);
+    background-color: rgb(186, 186, 186);
+    width: 13vw;
+    min-height: 9.5vw;
+    height: 9.5vw;
+    filter: drop-shadow(5px 5px #505050);
+    text-align: center;
+    font-family: Marker;
+    font-size: 2.5vw;
+    padding-top: 0.5vw;
+    color: #292929;
+    cursor: pointer;
+}
+
+sticky-note#clear-sticky {
+    border-color: rgb(246, 148, 148);
+    background-color: rgb(255, 202, 202);
+    color: rgb(98, 24, 24);
+}
+
+sticky-note#clear-sticky:hover {
+    border-color: rgb(254, 122, 122);
+    background-color: rgb(255, 172, 172);
+}
+
+sticky-note#copy-sticky {
+    border-color: rgb(105, 207, 240);
+    background-color: rgb(175, 235, 255);
+    color: rgb(24, 53, 98);
+}
+
+sticky-note#copy-sticky:hover {
+    border-color: rgb(86, 187, 221);
+    background-color: rgb(149, 229, 255);
+}
+
+sticky-note#paste-sticky {
+    border-color: rgb(97, 212, 166);
+    background-color: rgb(197, 255, 221);
+    color: rgb(20, 77, 17);
+}
+
+sticky-note#paste-sticky:hover {
+    border-color: rgb(74, 190, 144);
+    background-color: rgb(165, 243, 198);
+}

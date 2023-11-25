@@ -1,0 +1,84 @@
+html, body {
+    background: linear-gradient(40deg, #efc496 0%, #efb577 100%);
+}
+
+@font-face {
+    font-family: pixel;
+    src: url(../fonts/04B_03__.ttf);
+}
+
+@font-face {
+    font-family: Marker;
+    src: url(../fonts/PermanentMarker-Regular.ttf);
+}
+
+@font-face {
+    font-family: Caveat;
+    src: url(../fonts/Caveat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Black.ttf);
+}
+
+@font-face {
+    font-family: YoungSerif;
+    src: url(../fonts/YoungSerif-Regular.ttf);
+}
+
+/* pinboard-background */
+
+pinboard-background #outline {
+    position: fixed;
+    background-color: transparent;
+    border: 5px solid #272727;
+    box-shadow:inset 0 0 0 5px #505050;
+    width: calc(100vw - 10px);
+    height: calc(100vh - 10px);
+    top: 0;
+    left: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+pinboard-background .pinboard-corner {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background-color: #272727;
+    z-index: 1;
+}
+
+pinboard-background #top-left-corner {
+    border-bottom: solid 5px #505050;
+    border-right: solid 5px #505050;
+    top: 5px;
+    left: 5px;
+}
+
+pinboard-background #top-right-corner {
+    border-bottom: solid 5px #505050;
+    border-left: solid 5px #505050;
+    top: 5px;
+    right: 5px;
+}
+
+pinboard-background #bottom-right-corner {
+    border-top: solid 5px #505050;
+    border-left: solid 5px #505050;
+    bottom: 5px;
+    right: 5px;
+}
+
+pinboard-background #bottom-left-corner {
+    border-top: solid 5px #505050;
+    border-right: solid 5px #505050;
+    bottom: 5px;
+    left: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}

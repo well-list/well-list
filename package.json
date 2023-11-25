@@ -4,6 +4,7 @@
   "description": "Web application aimed to make personal health/wellness tasks more engaging",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "jest"
   },
   "jest": {
@@ -31,9 +32,11 @@
     "mongoose": "^7.6.1",
     "node": "^21.1.0",
     "node.js": "^0.0.1-security",
-    "nodejs": "^0.0.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

@@ -8,7 +8,7 @@ test("adding user to db using passport", async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: "tester",
+                username: "hahayestesterhehe",
                 password: "testPassword",
             }),
         });
@@ -26,7 +26,7 @@ test("reject account creation where username already exists", async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: "tester",
+                username: "hahayestesterhehe",
                 password: "testPassword",
             }),
         });
@@ -44,7 +44,7 @@ test("successful login", async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: "tester",
+                username: "hahayestesterhehe",
                 password: "testPassword",
             }),
         });

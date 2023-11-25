@@ -1,0 +1,68 @@
+rewards-container {
+    display: inline-block;
+    margin-top: 15px;
+    border: 3px solid white;
+    filter: drop-shadow(3px 3px #505050);
+    margin-bottom: 15px;
+}
+
+rewards-section {
+    width: calc(58vw - 127px);
+    height: calc(0.54 * (58vw - 127px));
+
+    background-color: #1a1a1a;
+    /* border: #1a1a1a solid 5px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+canvas {
+    background-color: transparent;
+    image-rendering: pixelated;
+}
+
+#plant-summary-canvas {
+    width: calc(58vw - 127px);
+    display: flex;
+    margin: 0;
+}
+
+#shop-button:hover {
+    cursor: pointer;
+    color: rgb(166, 255, 209);
+    border-color: rgb(166, 255, 209);
+}
+
+rewards-text {
+    position: absolute;
+    top: calc(0.0244 * (58vw - 127px));
+    left: calc(0.0262 * (58vw - 127px));
+    font-family: pixel;
+    font-size: calc(0.04 * (58vw - 127px));
+    color: white;
+    text-align: center;
+    width: calc(0.4607 * (58vw - 127px));
+    height: calc(0.4904 * (58vw - 127px));
+}
+
+rewards-text #reward-section-header {
+    margin: auto;
+    margin-top: 1.5vw;
+    padding-bottom: 0.5vw;
+    width: fit-content;
+    border-bottom: calc(0.003 * (58vw - 127px)) solid white;
+    margin-bottom: 2vw;
+}
+
+rewards-text #shop-button {
+    margin: auto;
+    margin-top: 1.5vw;
+    padding: 1vw 4vw;
+    width: fit-content;
+    border: calc(0.003 * (58vw - 127px)) solid white;
+}
+
+rewards-text > * {
+    margin-top: 1vw;
+}

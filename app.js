@@ -58,9 +58,14 @@ app.post('/api/createUser', async (req, res) => {
     }
 })
 
+/* Route Handler for Home Page */
+app.get('/home', (req, res) => {
+    res.sendFile(__dirname + '/public/home.html');
+});
+
 /* TODO: redirect to login page and have a failure redirect */
 app.post('/api/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/home',
 }));
 
 /* Port Stuff */
