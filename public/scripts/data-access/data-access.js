@@ -18,6 +18,7 @@ var CACHED_REWARDS_DATA = null;
 
 export function setLoggedInUser(username) {
     LOGGED_IN_USER = username;
+    console.log(LOGGED_IN_USER);
 }
 
 export function getLoggedInUser() {
@@ -36,6 +37,10 @@ export function changeToPreviousDay() {
 
 export function getFocusedDate() {
     return FOCUSED_DATE;
+}
+
+export function getFocusedDataString() {
+    return FOCUSED_DATE_STRING;
 }
 
 export function getFocusedMonth() {
@@ -150,11 +155,11 @@ export function addNewTask(taskID, order, priority, description) {
 }
 
 export function updateTaskCompleteStatus(taskID, isCompleted) {
-    return data_connection.updateTaskCompleteStatus(taskID, isCompleted, LOGGED_IN_USER, FOCUSED_MONTH);
+    return data_connection.updateTaskCompleteStatus(taskID, isCompleted);
 }
 
-export function removeTask(taskID) {
-    return data_connection.removeTask(taskID);
+export function deleteTask(taskID) {
+    return data_connection.deleteTask(taskID);
 }
 
 export function updateTaskDescription(taskID, description) {
@@ -162,11 +167,7 @@ export function updateTaskDescription(taskID, description) {
 }
 
 export function clearTasks() {
-    return data_connection.clearTasks(FOCUSED_DATE_STRING);
-}
-
-export function addTasks(tasks) {
-    return data_connection.addTasks(tasks, FOCUSED_DATE_STRING);
+    return data_connection.clearTasks(LOGGED_IN_USER, FOCUSED_DATE_STRING);
 }
 
 // --- Data Retrieval ---

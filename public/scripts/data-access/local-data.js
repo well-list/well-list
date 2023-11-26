@@ -84,14 +84,22 @@ export function setRewardsTheme(theme_id, username, month) {
 
 export function addNewTask(task_id, order, username, priority, description, date) {
     const taskElement = createTaskElement(task_id, order, username, priority, description, date);
-    TASK_COLLECTION.push(taskElement);
+    const dailyTaskPriorityTasks = getAllElementsWithMatchingKeyValues(
+        TASK_COLLECTION, [constants.USERNAME, constants.DATE, constants.PRIORITY], [username, date, priority]
+    ).length;
+    if(dailyTaskPriorityTasks < constants.TASK_LIMITS[priority]) {
+        TASK_COLLECTION.push(taskElement);
+    }
 }
 
-export function updateTaskCompleteStatus(task_id, isCompleted, username, month) {
+export function updateTaskCompleteStatus(task_id, isCompleted) {
     const taskIndex = getElementIndex(TASK_COLLECTION, [constants.TASK_ID], [task_id]);
     TASK_COLLECTION[taskIndex][constants.COMPLETED] = isCompleted;
+    // update points
+    const username = TASK_COLLECTION[taskIndex][constants.USERNAME]
+    const dateSplit = TASK_COLLECTION[taskIndex][constants.DATE].split('-')
+    const month = `${dateSplit[0]}-${dateSplit[1]}`;
     const taskPriority = TASK_COLLECTION[taskIndex][constants.PRIORITY];
-
     const rewardsElementIndex = getElementIndex(
         REWARDS_COLLECTION,
         [constants.USERNAME, constants.MONTH],
@@ -103,8 +111,23 @@ export function updateTaskCompleteStatus(task_id, isCompleted, username, month) 
     REWARDS_COLLECTION[rewardsElementIndex][constants.POINTS] = updatedPoints;
 }
 
-export function removeTask(task_id) {
+export function deleteTask(task_id) {
     const taskIndex = getElementIndex(TASK_COLLECTION, [constants.TASK_ID], [task_id]);
+    // update points
+    if(TASK_COLLECTION[taskIndex][constants.COMPLETED]) {
+        const taskPriority = TASK_COLLECTION[taskIndex][constants.PRIORITY];
+        const username = TASK_COLLECTION[taskIndex][constants.USERNAME]
+        const dateSplit = TASK_COLLECTION[taskIndex][constants.DATE].split('-')
+        const month = `${dateSplit[0]}-${dateSplit[1]}`;
+        const rewardsElementIndex = getElementIndex(
+            REWARDS_COLLECTION,
+            [constants.USERNAME, constants.MONTH],
+            [username, month]
+        );
+        let pointChange = constants.TASK_REWARDS[taskPriority] * -1;
+        const updatedPoints = REWARDS_COLLECTION[rewardsElementIndex][constants.POINTS] + pointChange;
+        REWARDS_COLLECTION[rewardsElementIndex][constants.POINTS] = updatedPoints;
+    }
     TASK_COLLECTION.splice(taskIndex, 1);
 }
 
@@ -119,15 +142,12 @@ export function clearTasks(username, date) {
         [constants.USERNAME, constants.DATE],
         [username, date]
     );
-    for (let i = 0; i < matchingElementsIndexes.length; i++) {
-        TASK_COLLECTION.splice(matchingElementsIndexes[i], 1);
+    const taskIDs = [];
+    for (let i = matchingElementsIndexes.length - 1; i >= 0; i--) {
+        taskIDs.push(TASK_COLLECTION[matchingElementsIndexes[i]][constants.TASK_ID]);
     }
-}
-
-// for paste functionality, make sure task_ids and dates are updated before calling
-export function addTasks(tasks) {
-    for(let i = 0; i < tasks.length; i++) {
-        TASK_COLLECTION.push(tasks[i]);
+    for (let i = 0; i < taskIDs.length; i++) {
+        deleteTask(taskIDs[i]);
     }
 }
 

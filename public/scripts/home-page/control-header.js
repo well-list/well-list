@@ -5,28 +5,15 @@ import * as tasks from "./tasks.js";
 export function initializeMainBanner(date) {
     setMainBannerDateLabel(date);
     setUsernameLabel(data.getLoggedInUser());
+    
     document.getElementById('logout-button').addEventListener('click', () => {
         handleLogout();
     });
     document.getElementById('previous-day-button').addEventListener('click', () => {
-        const monthBefore = data.getFocusedDate().getMonth();
-        data.changeToPreviousDay();
-        setMainBannerDateLabel(data.getFocusedDate());
-        if(monthBefore !== data.getFocusedDate().getMonth()) {
-            data.setFocusedMonth(data.getFocusedDate());
-            rewardsSection.updateRewardsSection();
-        }
-        tasks.loadPriorityTasksElements(data.getTasks());
+        handleDaySwitch(true, false);
     });
     document.getElementById('next-day-button').addEventListener('click', () => {
-        const monthBefore = data.getFocusedDate().getMonth();
-        data.changeToNextDay();
-        setMainBannerDateLabel(data.getFocusedDate());
-        if(monthBefore !== data.getFocusedDate().getMonth()) {
-            data.setFocusedMonth(data.getFocusedDate());
-            rewardsSection.updateRewardsSection();
-        }
-        tasks.loadPriorityTasksElements(data.getTasks());
+        handleDaySwitch(false, true);
     });
 }
 
@@ -40,8 +27,21 @@ export function setMainBannerDateLabel(date) {
     document.getElementById('date-banner').innerHTML = date.toLocaleString("en-US", options);
 }
 
+function handleDaySwitch(switchToPrevious, switchToNext) {
+    const monthBefore = data.getFocusedDate().getMonth();
+    if(switchToPrevious) data.changeToPreviousDay();
+    if(switchToNext) data.changeToNextDay();
+    setMainBannerDateLabel(data.getFocusedDate());
+    if(monthBefore !== data.getFocusedDate().getMonth()) {
+        data.setFocusedMonth(data.getFocusedDate());
+        rewardsSection.updateRewardsSection();
+    }
+    tasks.loadPriorityTasksElements(data.getTasks());
+}
+
 function handleLogout() {
     console.log("Logout Button Pressed");
+    window.location.href = `/`;
 }
 
 function setUsernameLabel(username) {
