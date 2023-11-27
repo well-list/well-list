@@ -1,0 +1,131 @@
+.edit-controls {
+    display: flex;
+    flex-direction: column;
+    width: 10vw;
+    align-items: center;
+}
+
+textarea {
+    /* margin-left: -0.25vw; */
+    width: calc(34.5vw - 25px);
+    height: 4vw;
+    font-family: YoungSerif;
+    font-size: 1.35vw;
+    resize: none;
+    margin-top: -0.2vw;
+}
+
+.task-paper-header {
+    padding: 0.5vw -1px 0vw 0.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-paper-header .title-add-button-container {
+    display: flex;
+}
+
+.content-container .lined-area {
+    margin-left: calc(0.5vw + 5px);
+    width: calc(42vw - 25px);
+    background-image: linear-gradient(0, #dbdbdb 6%, transparent 1%, transparent 74%);
+    background-size: calc(43vw - 15px) 2.2vw;
+    font-size: 1.35vw;
+    line-height: 2.25vw;
+    padding-top: 0;
+    padding-bottom: 1vw;
+}
+
+.task-container {
+    color: #292929;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-container .task-description {
+    display: flex;
+}
+
+.task-container .task-description .bullet {
+    width: 1vw;
+}
+
+.task-container .task-description .text {
+    width: calc(31vw - 25px);
+    text-wrap: wrap;
+}
+
+.task-paper-header .add-task-button {
+    text-align: center;
+    color: #292929;
+}
+
+.task-paper-header .add-task-button:hover {
+    color: rgb(0, 85, 21);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.task-container .task-controls {
+    display: flex;
+    justify-content: space-evenly;
+    width: 10vw;
+    height: 2.2vw;
+}
+
+.task-controls .edit-button {
+    color: #292929;
+}
+
+.task-controls .edit-button:hover {
+    color: rgb(0, 85, 21);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.edit-controls .save-button {
+    color: #292929;
+}
+
+.edit-controls .save-button:hover {
+    color: rgb(0, 85, 21);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.edit-controls .cancel-button {
+    color: #292929;
+}
+
+.edit-controls .cancel-button:hover {
+    color: rgb(85, 0, 0);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.edit-controls .delete-button {
+    color: #292929;
+}
+
+.edit-controls .delete-button:hover {
+    color: rgb(85, 0, 0);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.no-tasks-label {
+    width: calc(43vw - 25px);
+    text-align: center;
+    color: rgb(103, 103, 103);
+}
+
+.title-add-button-container .title {
+    margin-right: 0.75vw;
+}
+
+.task-container .task-controls input {
+    margin: 0;
+    margin-top: 0.25vw;
+    width: 1.55vw;
+    height: 1.55vw;
+}

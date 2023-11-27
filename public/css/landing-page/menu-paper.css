@@ -1,0 +1,168 @@
+menu-paper #content-container {
+    position: absolute;
+    margin: 20px;
+    margin-top: 35px;
+    z-index: 2;
+    font-family: YoungSerif;
+    z-index: 2;
+    width: calc(45vw - 40px);
+    height: calc(98vh - 75px - 25px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+menu-paper #content-container::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+menu-paper #content-container::-webkit-scrollbar-thumb {
+    background: #b2b2b2; 
+}
+
+menu-paper #content-container::-webkit-scrollbar-thumb:hover {
+    background: #808080; 
+}
+
+menu-paper #content-container #lined-area {
+    display: flex;
+    flex-flow: column;
+    width: calc(45vw - 80px);
+    margin-left: 20px;
+    margin-right: 20px;
+    height: calc(98vh - 120px - 6vw);
+    background-image: linear-gradient(0, #dbdbdb 6%, transparent 1%, transparent 74%);
+    background-size: calc(45vw - 40px) 3vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+    padding-top: 0.5vw;
+    margin-top: -0.5vw;
+}
+
+menu-paper #content-container #title {
+    color: #292929;
+    font-size: 3.5vw;
+    text-align: center;
+}
+
+menu-paper #content-container #lined-area #subtitle {
+    margin-top: -0.5vw;
+    margin-bottom: 0.5vw;
+    font-size: 2vw;
+}
+
+menu-paper #content-container #lined-area .username-password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 0.5vw;
+}
+
+menu-paper #content-container #lined-area .username-password-container #label {
+    width: calc(11vw - 20px);
+    margin: 0 0 -0.65vw 0;
+}
+
+menu-paper #content-container #lined-area .username-password-container input {
+    height: 2.85vw;
+    width: calc(100% - 1.5vw);
+    outline: 0 none;
+    box-shadow: none;
+    border: 0.175vw solid #292929;
+    font-family: YoungSerif;
+    font-size: 1.5vw;
+    padding: 0 0.6vw 0 0.6vw;
+    margin: 0 0 0 0;
+}
+
+menu-paper #content-container #lined-area .username-password-container input:focus {
+    border: 0.175vw solid #2e82ff;
+}
+
+menu-paper #content-container #lined-area .controls {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 0.5vw);
+}
+
+menu-paper #content-container #lined-area .controls #create-account-button {
+    color: #327281;
+}
+
+menu-paper #content-container #lined-area .controls #create-account-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+menu-paper #content-container #lined-area .controls #login-button {
+    color: #005d2a;
+}
+
+menu-paper #content-container #lined-area .controls #login-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+menu-paper #content-container #message-container {
+    color: rgb(27, 73, 105);
+    padding-right: 0.5vw;
+    padding-left: 0.5vw;
+}
+
+@media only screen and (max-width: 700px) {
+    menu-paper {
+        position: relative;
+        width: calc(96vw - 60px);
+        height: calc(100vw - 30px);
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin-left: 2vw;
+    }
+
+    menu-paper #content-container {
+        width: calc(96vw - 80px);
+        height: calc(100vw - 90px - 6vw);
+        overflow: hidden;
+    }
+
+    menu-paper #content-container #title {
+        font-size: 5vw;
+    }
+
+    menu-paper #content-container::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    menu-paper #content-container #lined-area {
+        width: calc(96vw - 100px);
+        height: calc(100vw - 90px - 6vw);
+        background-image: linear-gradient(0, #dbdbdb 5%, transparent 1%, transparent 74%);
+        background-size: calc(45vw - 40px) 7vw;
+        font-size: 3vw;
+        line-height: 7vw;
+        padding-top: 0.5vw;
+        margin-top: -0.5vw;
+    }
+
+    menu-paper #content-container #lined-area .username-password-container #label {
+        width: calc(11vw - 20px);
+        margin: 0 0 -0.8vw 0;
+    }
+    
+    menu-paper #content-container #lined-area .username-password-container input {
+        height: 6.7vw;
+        width: calc(100% - 1.8vw);
+        outline: 0 none;
+        box-shadow: none;
+        border: 0.35vw solid #292929;
+        font-family: YoungSerif;
+        font-size: 1.5vw;
+        padding: 0 0.6vw 0 0.6vw;
+        margin: 0 0 0 0;
+    }
+
+    menu-paper #content-container #lined-area #subtitle {
+        font-size: 3vw;
+    }
+}

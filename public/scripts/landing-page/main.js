@@ -1,36 +1,8 @@
+import { handleLogin } from "./login.js";
+import { handleAccountCreation } from "./create-account.js";
+import { createElement } from "../utils.js";
+
 loadLogin();
-
-// TODO: relevant to account encryption/validation
-function handleLogin() {
-    const username = document.getElementById('username-input').value
-    const password = document.getElementById('password-input').value
-
-    if (username.length === 0) {
-        setMessageText('Please provide a username');
-    }
-    else if (password.length === 0) {
-        setMessageText('Please provide a password');
-    }
-    else {
-        setMessageText(`Attempted login with username: [${username}] and password: [${password}].`);
-    }
-}
-
-// TODO: relevant to account encryption/validation
-function handleAccountCreation() {
-    const username = document.getElementById('username-input').value
-    const password = document.getElementById('password-input').value
-
-    if (username.length === 0) {
-        setMessageText('Please provide a username');
-    }
-    else if (password.length === 0) {
-        setMessageText('Please provide a password');
-    }
-    else {
-        setMessageText(`Attempted account creation with username: [${username}] and password: [${password}].`);
-    }
-}
 
 var SELECTED_STICKY = []; // [id, class, innerHTML]
 
@@ -72,11 +44,10 @@ function handleStickyClicked(loadStickyFunction, stickyID, stickyClass, stickyIn
 }
 
 function loadLogin() {
-    setMenuTitle('Welcome Back!')
+    setMenuTitle('Login To Account')
     const container = document.getElementById('lined-area');
     container.innerHTML = '';
     // creating and adding elements using menu paper element
-    container.appendChild(createElement('div', ['id'], ['subtitle'], 'Login:'));
     const usernameInputContainer = createElement('div', ['class'], ['username-password-container'], null);
     usernameInputContainer.appendChild(createElement('div', ['id'], ['label'], 'Username:'));
     usernameInputContainer.appendChild(createElement('input', ['id', 'type', 'for'], ['username-input', 'text', 'username'], 'Username:'));
@@ -92,13 +63,6 @@ function loadLogin() {
     });
     submitControlsContainer.appendChild(loginButton);
     container.appendChild(submitControlsContainer);
-    const createAccountControlsContainer = createElement('div', ['class'], ['controls'], 'Create a new account:');
-    const createAccountButton = createElement('div', ['id'], ['create-account-button'], 'Create Account.');
-    createAccountButton.addEventListener('click', () => {
-        handleStickyClicked(loadCreateAccount, 1, 'account-creation', 'Create Account');
-    });
-    createAccountControlsContainer.appendChild(createAccountButton);
-    container.appendChild(createAccountControlsContainer);
     const messageContainer = createElement('div', ['id'], ['message-container'], null);
     messageContainer.appendChild(createElement('div', ['id'], ['message-title'], 'Message:'));
     messageContainer.appendChild(createElement('div', ['id'], ['message-text'], 'Please enter your login information. If you do not have an account then please create one.'));
@@ -106,11 +70,10 @@ function loadLogin() {
 }
 
 function loadCreateAccount() {
-    setMenuTitle('Welcome!')
+    setMenuTitle('Create Account')
     const container = document.getElementById('lined-area');
     container.innerHTML = '';
     // creating and adding elements using menu paper element
-    container.appendChild(createElement('div', ['id'], ['subtitle'], 'Create Account:'));
     const usernameInputContainer = createElement('div', ['class'], ['username-password-container'], null);
     usernameInputContainer.appendChild(createElement('div', ['id'], ['label'], 'Username:'));
     usernameInputContainer.appendChild(createElement('input', ['id', 'type', 'for'], ['username-input', 'text', 'username'], 'Username:'));
@@ -126,13 +89,6 @@ function loadCreateAccount() {
     });
     submitControlsContainer.appendChild(createAccountButton);
     container.appendChild(submitControlsContainer);
-    const loginControlsContainer = createElement('div', ['class'], ['controls'], 'Login to an existing account:');
-    const loginButton = createElement('div', ['id'], ['login-button'], 'Login.');
-    loginButton.addEventListener('click', () => {
-        handleStickyClicked(loadCreateAccount, 1, 'account-creation', 'Create Account');
-    });
-    loginControlsContainer.appendChild(loginButton);
-    container.appendChild(loginControlsContainer);
     const messageContainer = createElement('div', ['id'], ['message-container'], null);
     messageContainer.appendChild(createElement('div', ['id'], ['message-title'], 'Message:'));
     messageContainer.appendChild(createElement('div', ['id'], ['message-text'], 'Please enter your new account information.'));
@@ -168,17 +124,4 @@ function loadAbout() {
 
 function setMenuTitle(titleText) {
     document.getElementById('title').innerHTML = titleText;
-}
-
-function setMessageText(messageText) {
-    document.getElementById('message-text').innerHTML = messageText;
-}
-
-function createElement(type, attributes, values, innerHTML) {
-    const element = document.createElement(type);
-    for(let i = 0; i < attributes.length; i++) {
-        element.setAttribute(attributes[i], values[i]);
-    }
-    if(innerHTML !== null) element.innerHTML = innerHTML;
-    return element;
 }
