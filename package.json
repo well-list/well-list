@@ -11,6 +11,7 @@
     "verbose": true
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.0.1"
   },
@@ -31,6 +32,7 @@
     "express-session": "^1.17.3",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.1",
+    "node": "^21.1.0",
     "node.js": "^0.0.1-security",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
