@@ -91,7 +91,7 @@ function handleCanvasMouseDown(event) {
 
     if(data.isBuySelectionMode() && data.isPlantSelected()) {
         if(data.isRewardsPositionEmpty(gridPosition['row'], gridPosition['column']) && data.isPlantAffordable(data.getSelectedPlant(), data.getSelectedPlantColor())) {
-            const plantCanvasCtx = (data.getRewardsPlantID(gridPosition['row'], gridPosition['column']) === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
+            const plantCanvasCtx = (data.getSelectedPlant() === constants.VINE_PATHOS_ID) ? vpCanvasContext : plantsCanvasContext;
             drawPlant(plantCanvasCtx, gridPosition, data.getSelectedPlantColor(), data.getSelectedPlant());
             data.buyPlant(gridPosition['row'], gridPosition['column'], data.getSelectedPlant(), data.getSelectedPlantColor());
             handlePlantBoughtOrSold();

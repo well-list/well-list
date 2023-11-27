@@ -14,6 +14,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+    "nodemon": "^3.0.1"
   },
   "repository": {
     "type": "git",

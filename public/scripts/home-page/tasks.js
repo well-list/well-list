@@ -218,6 +218,9 @@ function clearTasks() {
     data.clearTasks();
     loadPriorityTasksElements(data.getTasks());
     updatePointsEarnedLabel();
+    for(let i = 0; i < constants.PRIORITIES.length; i++) {
+        document.getElementById(`${constants.PRIORITIES[i]}-priority-add-task-button`).style.display = 'block';
+    }
 }
 
 function copyTasks() {
