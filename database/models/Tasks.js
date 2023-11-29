@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
-//const User = require('./User');
 
 const TasksSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true},
-    priority: String,
-    order: Number,
-    _id: Number,
-    date: String,
-    description: String,
-    completed: Boolean
+    _id: { type: String },
+    username: { type: String, required: true },
+    priority: { type: String, required: true },
+    order: { type: Number, required: true },
+    date: { type: String, required: true },
+    description: { type: String, required: true },
+    completed: { type: Boolean, required: true }
 });
-    
 
 const Task = new mongoose.model("Task", TasksSchema);
 

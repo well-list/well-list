@@ -3,20 +3,26 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const connectDB = require('./database/config/db');
-const User = require('./database/models/User');
 const passport = require('passport');
 
-/* Passport Config */
+const User = require('./database/models/User');
+const Tasks = require('./database/models/Tasks');
+const Rewards = require('./database/models/Rewards');
+
+/* --- Config --- */
+
 require('./database/config/passport')(passport);
 
-/* Load Config */
+/* --- Load Config --- */
+
 dotenv.config({ path: './database/config/config.env' });
 connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.static('public'))
 
-/* Setting up Express Sessions */
+/* --- Express Session --- */
+
 app.use(session ({
     secret: 'secret',
     resave: false,
@@ -27,17 +33,32 @@ app.use(session ({
 // const seedDatabase = require('./database/Test');
 // seedDatabase();
 
-/* Initalize Passport */
+/* --- Passport --- */
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/api/createUser', async (req, res) => {
-    console.log(req.body);
-    const { username, password } = req.body;
+/* --- Routes --- */
 
+app.post('/api/createUser', createUser)
+app.post('/api/login', passport.authenticate('local', { successRedirect: '/home' }));
+app.get('/home', (req, res) => { res.sendFile(__dirname + '/public/home.html'); });
+
+/* --- Port Definition --- */
+
+const PORT = process.env.PORT || 3000;
+app.listen(
+    PORT,
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+);
+
+/* --- Route Handlers --- */
+
+async function createUser(req, res) {
+    // console.log(req.body);
+    const { username, password } = req.body;
     try {
         const existingUser = await User.findOne({ username: username });
-
         if(existingUser) {
             return res.status(401).json({ error: 'Username already exists' });
         } else {
@@ -56,21 +77,4 @@ app.post('/api/createUser', async (req, res) => {
         console.error('Error', error);
         return res.status(500).json({ error: 'Internal Server Error' });;
     }
-})
-
-/* Route Handler for Home Page */
-app.get('/home', (req, res) => {
-    res.sendFile(__dirname + '/public/home.html');
-});
-
-/* TODO: redirect to login page and have a failure redirect */
-app.post('/api/login', passport.authenticate('local', {
-    successRedirect: '/home',
-}));
-
-/* Port Stuff */
-const PORT = process.env.PORT || 3000;
-app.listen(
-    PORT,
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
-);
+}
