@@ -1,3 +1,6 @@
+# Final Submission
+FinalSubmission/ : Contains the Project Report
+
 # Well-List
 Web application aimed to make personal health/wellness tasks more engaging
 
