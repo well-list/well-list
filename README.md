@@ -39,7 +39,7 @@ Well-List
 1. Type the command `npm test` to run all tests.
 
 ## Installation Instructions
-This is just a simple step-by-step instruction. Edit as you all see fit. Assuming the user is an everyday person AND assuming the user already has git installed.
+Assuming the user is an everyday person AND assuming the user already has git installed.
 1. Go to the github repo here
 1. Click on the button “Code” and copy the HTTPS link
 1. Open up a folder in a CLI/terminal where you would like to download the repository to
