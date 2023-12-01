@@ -1,6 +1,6 @@
 # Final Submission
 FinalSubmission/ (folder) : Contains the Project Report  
-Readme.md : Contains the User Guide
+Readme.md : Contains the User Guide  
 database/(folder) : Contains code pertaining to the database  
   
 Source code:
