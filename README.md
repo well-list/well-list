@@ -2,6 +2,7 @@
 FinalSubmission/ (folder) : Contains the Project Report  
 Readme.md : Contains the User Guide  
 
+# User Guide
 
 ## Product Name
 Well-List
@@ -50,6 +51,8 @@ This is just a simple step-by-step instruction. Edit as you all see fit. Assumin
 **A**: Well-List is open source! You can view all code from the Well-list Repository (Where you should have gotten the Well-List files from) if you have any concerns about ill-intent. Do not install from anywhere else, as Well-List has not been deployed elsewhere.
 
 ## Troubleshooting
+
+###### End User Guide
 
 
 # Well-List
