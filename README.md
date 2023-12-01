@@ -1,6 +1,6 @@
 # Final Submission
-FinalSubmission/ (folder) : Contains the Project Report
-Readme.md : Contains the User Guide
+FinalSubmission/ (folder) : Contains the Project Report  
+Readme.md : Contains the User Guide  
 
 # Well-List
 Web application aimed to make personal health/wellness tasks more engaging
