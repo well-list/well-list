@@ -9,7 +9,6 @@ const User = require('./database/models/User');
 const Tasks = require('./database/models/Tasks');
 const Rewards = require('./database/models/Rewards');
 
-const constants = require("./public/scripts/constants");
 /* --- Config --- */
 
 require('./database/config/passport')(passport);
@@ -41,10 +40,22 @@ app.use(passport.session());
 
 /* --- Routes --- */
 
-app.post('/api/createUser', createUser)
+app.post('/api/createUser', createUser);
 app.post('/api/login', passport.authenticate('local', { successRedirect: '/home' }));
+app.post("/api/addNewTask", addNewTask);
 app.get('/home', (req, res) => { res.sendFile(__dirname + '/public/home.html'); });
-
+app.get("/api/getTasks", getTasks);
+app.get("/api/getRewardsData", getRewardsData);
+// should these be PUT or PATCH? vvv
+app.put("/api/buyPlant", buyPlant);
+app.put("/api/sellPlant", sellPlant);
+app.put("/api/movePlant", movePlant);
+app.put("/api/setRewardsTheme", setRewardsTheme);
+app.put("/api/updateTaskCompleteStatus", updateTaskStatus);
+app.put("/api/updateTaskDescription", updateTaskDescription);
+// delete or put? vvv
+app.delete("/api/deleteTask", deleteTask);
+app.delete("/api/clearTasks", clearTasks);
 /* --- Port Definition --- */
 
 const PORT = process.env.PORT || 3000;
@@ -189,7 +200,7 @@ async function getRewardsData(req, res) {
 
 async function buyPlant(req, res) {
     const {row, column, plantID, colorID, username, month} = req.body;
-    const costOfPlant = constants.PLANT_COSTS[plantID][colorID];
+    const costOfPlant = PLANT_COSTS[plantID][colorID];
 
     const currUserRewards = await Rewards.findOne({username: username, month: month});
     let currUserPoints = currUserRewards.points;
@@ -218,7 +229,7 @@ async function sellPlant(req, res) {
 
     const plantID = currUserRewards.plant_ids[row][column];
     const colorID = currUserRewards.color_ids[row][column];
-    const costOfPlant = constants.PLANT_COSTS[plantID][colorID];
+    const costOfPlant = PLANT_COSTS[plantID][colorID];
     
     let currUserPoints = currUserRewards.points;
     currUserPoints += costOfPlant;   // adding points back for selling plant
@@ -261,3 +272,20 @@ async function movePlant(req, res) {
     );
     return res.status(200);
 }
+
+/* Find workaround */
+const MONEY_PLANT_COSTS = [100, 150, 200, 100, 150, 200, 100, 150, 200, 100, 150, 200, 100, 150, 200, 100, 150, 200];
+const MONEY_TREE_COSTS = [200, 250, 300, 200, 250, 300, 200, 250, 300, 200, 250, 300, 200, 250, 300, 200, 250, 300];
+const BAMBOO_COSTS = [300, 350, 400, 300, 350, 400, 300, 350, 400, 300, 350, 400, 300, 350, 400, 300, 350, 400];
+const ELM_BONZAI_COSTS = [400, 450, 500, 400, 450, 500, 400, 450, 500, 400, 450, 500, 400, 450, 500, 400, 450, 500];
+const JUNIPER_BOMZAI_COSTS = [500, 550, 600, 500, 550, 600, 500, 550, 600, 500, 550, 600, 500, 550, 600, 500, 550, 600];
+const VINED_PATHOS_COSTS = [600, 650, 700, 600, 650, 700, 600, 650, 700, 600, 650, 700, 600, 650, 700, 600, 650, 700];
+
+const PLANT_COSTS = [
+    MONEY_PLANT_COSTS,
+    MONEY_TREE_COSTS,
+    BAMBOO_COSTS,
+    ELM_BONZAI_COSTS,
+    JUNIPER_BOMZAI_COSTS,
+    VINED_PATHOS_COSTS
+]
