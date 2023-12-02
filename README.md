@@ -54,7 +54,7 @@ Assuming the user is an everyday person AND assuming the user already has git in
 **Q**: Can I trust installing and setting up Well-List on a personal machine?
 **A**: Well-List is open source! You can view all code from the Well-list Repository (Where you should have gotten the Well-List files from) if you have any concerns about ill-intent. Do not install from anywhere else, as Well-List has not been deployed elsewhere.
 
-## Troubleshooting
+## Troubleshooting  
 
 ### I can't connect to the localhost server
 This is most likely caused by the server not actually running, make sure to run the server using these steps.
