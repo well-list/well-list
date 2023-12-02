@@ -128,6 +128,9 @@ Well-List
 1. After logging in and accesssing the rewards area make sure the move button is selected in the top left of the screen
 2. Click the space where the plant you wish to move is and drag it into the empty space you wish to relocate it
 
+### Accessing MongoDB Database Data
+- Our app is currently hosted using a personal MongoDB account, which we probably should not publically share the account information to. MongoDB provides a lot of administrator database support. Message one of the creators if you want admnistrator access to the database.
+
 ## Installation Instructions
 Assuming the user is an everyday person AND assuming the user already has git installed.
 1. Go to the github repo here
@@ -140,7 +143,6 @@ Assuming the user is an everyday person AND assuming the user already has git in
 ## Frequently asked questions  
 
 **Q**: Why should I use Well-List?    
-
 **A**: Well-List is designed to make personal goal and task management more engaging and rewarding. By meeting your goals you earn rewards points that can spend on plants and building out gardens for each month.
 
 **Q**: Where are my tasks stored?  
