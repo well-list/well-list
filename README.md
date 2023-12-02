@@ -47,12 +47,12 @@ Assuming the user is an everyday person AND assuming the user already has git in
 1. Change the directory into the root folder of the repo
 1. Type `npm install` or `npm i` to install the remaining required files for the webapp to run.
 
-## Frequently asked questions
-**Q**: Where are my tasks stored?
-**A**: Tasks are stored within a MongoDB database, meaning upon setup you can access your tasks on one account from anywhere so long as you have an internet connection.
+## Frequently asked questions  
+**Q**: Where are my tasks stored?  
+**A**: Tasks are stored within a MongoDB database, meaning upon setup you can access your tasks on one account from anywhere so long as you have an internet connection.  
 
-**Q**: Can I trust installing and setting up Well-List on a personal machine?
-**A**: Well-List is open source! You can view all code from the Well-list Repository (Where you should have gotten the Well-List files from) if you have any concerns about ill-intent. Do not install from anywhere else, as Well-List has not been deployed elsewhere.
+**Q**: Can I trust installing and setting up Well-List on a personal machine?  
+**A**: Well-List is open source! You can view all code from the Well-list Repository (Where you should have gotten the Well-List files from) if you have any concerns about ill-intent. Do not install from anywhere else, as Well-List has not been deployed elsewhere.  
 
 ## Troubleshooting  
 
