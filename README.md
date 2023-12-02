@@ -56,6 +56,28 @@ Assuming the user is an everyday person AND assuming the user already has git in
 
 ## Troubleshooting
 
+### I can't connect to the localhost server
+This is most likely caused by the server not actually running, make sure to run the server using these steps.
+1. Open the root folder of the webapp in a command line interface
+1. Type 'node app.js'
+1. The server should now be running
+1. Connect to the server at localhost:3000 in whatever browser you prefer!
+
+### I can't connect to the database; My data isn't here.
+This could be caused by one of two reasons - The netwrok you're on may block MongoDB (As our college network does.) Or, you're not connected to the internet.
+1. Connect to a different network if the network you're on seems to block the host, or check to see if you have internet access.
+1. If you do not have internet access, connect to a network and you should then be able to properly use the app.
+
+### I can't clone the repo; git doesn't work.
+You've probably not properly installed git, or not installed it at all. Github has their own guide to installing git but we'll link it below.
+[Intsalling git](https://github.com/git-guides/install-git)
+
+### I can't run the app, a lot of functions aren't valid functions
+You've not installed all the required dependencies for the app, follow the steps below to do this.
+1. Open the root directory of the app folder you cloned from this github within a terminal.
+2. Run the comman 'npm install' or 'npm i' to install the required files.
+3. You should now be good to go!
+
 ###### End User Guide
 
 
