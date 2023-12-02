@@ -1,24 +1,24 @@
 # Final Submission
 
 ### Project Report
-`final_submission/project_report.pdf` : Project Report file
+- `final_submission/project_report.pdf` : Project Report file
 
 ### Guides
-`Readme.md` : File containing the User Guide.
+- `Readme.md` : File containing the User/Administrator Guides
 
 ### Code/Scripts
-`database/` : Directory containing database files
-`public/` : Directory containing client-side files
-`testing/` : Direcotry containing testing scripts
-`app.js` : Server script
+- `database/` : Directory containing database files
+- `public/` : Directory containing client-side files
+- `testing/` : Direcotry containing testing scripts
+- `app.js` : Server script
 
-# User Guide
+# User/Administrator Guides
 
-## Product Name
-Well-List
+## Product Name: Well-List
 
 ## Product Features
-- The main features of our application:
+
+### The main features of our application:
 - Setting and tracking daily tasks/goals
 - Gaining reward points for task completion
 - Exchanging reward points for plants to add to your monthly collection
@@ -35,25 +35,25 @@ Well-List
 
 #### For general use:
 1. Open up the root folder of the webapp in a command line interface (CLI) or terminal
-1. Run `npm install` or `npm i` if you haven’t done so from the installation instructions
-1. Type `node app.js` to start the server
-1. Open up a browser of your choice and type in localhost:3000 in the address bar
+2. Run `npm install` or `npm i` if you haven’t done so from the installation instructions
+3. Run `node app.js` to start the server
+4. Open up a browser of your choice and type in localhost:3000 in the address bar
 
 #### For testing:
 1. Have the repo installed. For instructions on how to install, see below.
-1. Load up the directory in two CLIs/terminals.
-1. Run the server in one terminal/CLI by typing `node app.js`.
-1. Change the directory of the other terminal/CLI into the testing folder.
-1. Type the command `npm test` to run all tests.
+2. Load up the directory in two CLIs/terminals.
+3. Run the server in one terminal/CLI by typing `node app.js`.
+4. Change the directory of the other terminal/CLI into the testing folder.
+5. Type the command `npm test` to run all tests.
 
 ## Installation Instructions
 Assuming the user is an everyday person AND assuming the user already has git installed.
 1. Go to the github repo here
-1. Click on the button “Code” and copy the HTTPS link
-1. Open up a folder in a CLI/terminal where you would like to download the repository to
-1. Type `git clone [paste the link here]`
-1. Change the directory into the root folder of the repo
-1. Type `npm install` or `npm i` to install the remaining required files for the webapp to run.
+2. Click on the button “Code” and copy the HTTPS link
+3. Open up a folder in a CLI/terminal where you would like to download the repository to
+4. Type `git clone [paste the link here]`
+5. Change the directory into the root folder of the repo
+6. Type `npm install` or `npm i` to install the remaining required files for the webapp to run.
 
 ## Frequently asked questions  
 **Q**: Where are my tasks stored?  
@@ -85,23 +85,3 @@ You've not installed all the required dependencies for the app, follow the steps
 1. Open the root directory of the app folder you cloned from this github within a terminal.
 2. Run the comman 'npm install' or 'npm i' to install the required files.
 3. You should now be good to go!
-
-###### End User Guide
-
-
-# Well-List
-Web application aimed to make personal health/wellness tasks more engaging
-
-# Running Locally
-
-Run the following command to automatically install the required modules:
-```sh
-npm install
-```
-
-To run our web server that also tests the database:
-```sh
-node app.js
-```
-
-You can then connect to our server using your web browser at `localhost:3000`
