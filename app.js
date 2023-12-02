@@ -29,10 +29,6 @@ app.use(session ({
     saveUninitialized: false
 }));
 
-/* Test Input to Database */
-// const seedDatabase = require('./database/Test');
-// seedDatabase();
-
 /* --- Passport --- */
 
 app.use(passport.initialize());
@@ -46,16 +42,15 @@ app.post("/api/addNewTask", addNewTask);
 app.get('/home', (req, res) => { res.sendFile(__dirname + '/public/home.html'); });
 app.get("/api/getTasks", getTasks);
 app.get("/api/getRewardsData", getRewardsData);
-// should these be PUT or PATCH? vvv
 app.put("/api/buyPlant", buyPlant);
 app.put("/api/sellPlant", sellPlant);
 app.put("/api/movePlant", movePlant);
 app.put("/api/setRewardsTheme", setRewardsTheme);
 app.put("/api/updateTaskCompleteStatus", updateTaskStatus);
 app.put("/api/updateTaskDescription", updateTaskDescription);
-// delete or put? vvv
 app.delete("/api/deleteTask", deleteTask);
 app.delete("/api/clearTasks", clearTasks);
+
 /* --- Port Definition --- */
 
 const PORT = process.env.PORT || 3000;
@@ -134,12 +129,26 @@ async function addNewTask(req, res) {
 }
 
 async function updateTaskStatus(req, res) {
-    const {task_id, isCompleted} = req.body;
+    const {task_id, isCompleted, points, username, month} = req.body;
 
     await Tasks.updateOne(
         {_id: task_id},
         {$set: {
             "completed": isCompleted
+        }}
+    );
+
+    const currUser = await Rewards.findOne({username: username, month: month});
+    let currPoints = currUser.points;
+    if (isCompleted) {
+        currPoints += points;
+    } else {
+        currPoints -= points;
+    }
+    await Rewards.updateOne(
+        {username: username, month: month},
+        {$set: {
+            "points": currPoints
         }}
     );
     return res.status(200).json({message: "Task updated"});
@@ -190,7 +199,6 @@ async function setRewardsTheme(req, res) {
     return res.status(200).json({message: "Theme updated"});
 }
 
-// TODO: error handling
 async function getRewardsData(req, res) {
     const {username, month} = req.body;
 
@@ -289,3 +297,7 @@ const PLANT_COSTS = [
     JUNIPER_BOMZAI_COSTS,
     VINED_PATHOS_COSTS
 ]
+
+/* Test Input to Database */
+// const seedDatabase = require('./database/Test');
+// seedDatabase();
