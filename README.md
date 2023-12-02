@@ -70,7 +70,7 @@ This could be caused by one of two reasons - The netwrok you're on may block Mon
 
 ### I can't clone the repo; git doesn't work.
 You've probably not properly installed git, or not installed it at all. Github has their own guide to installing git but we'll link it below.
-[Intsalling git](https://github.com/git-guides/install-git)
+[Installing git](https://github.com/git-guides/install-git)  
 
 ### I can't run the app, a lot of functions aren't valid functions
 You've not installed all the required dependencies for the app, follow the steps below to do this.
