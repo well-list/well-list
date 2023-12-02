@@ -1,10 +1,16 @@
 # Final Submission
-FinalSubmission/ (folder) : Contains the Project Report  
-Readme.md : Contains the User Guide  
-database/(folder) : Contains code pertaining to the database  
-  
-Source code:
-This repository
+
+### Project Report
+`final_submission/project_report.pdf` : Project Report file
+
+### Guides
+`Readme.md` : File containing the User Guide.
+
+### Code/Scripts
+`database/` : Directory containing database files
+`public/` : Directory containing client-side files
+`testing/` : Direcotry containing testing scripts
+`app.js` : Server script
 
 # User Guide
 
@@ -17,7 +23,8 @@ Well-List
 - Gaining reward points for task completion
 - Exchanging reward points for plants to add to your monthly collection
 - Creating personal accounts that can be used to login and access your account
-- Product Functions And Capabilities
+
+## Product Functions And Capabilities
 - Create, edit, and complete daily tasks for points you can spend on rewards.
 - Spend points for digital plants you can arrange however you like for each month, customize colors as well!
 - Copy tasks from day to day to save you time.
@@ -25,6 +32,7 @@ Well-List
 - View your gardens from prior months to review how doing your tasks has paid off in the past!
 
 ## Walk-Throughs
+
 #### For general use:
 1. Open up the root folder of the webapp in a command line interface (CLI) or terminal
 1. Run `npm install` or `npm i` if you haven’t done so from the installation instructions
