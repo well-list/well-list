@@ -69,7 +69,7 @@ This could be caused by one of two reasons - The netwrok you're on may block Mon
 1. If you do not have internet access, connect to a network and you should then be able to properly use the app.
 
 ### I can't clone the repo; git doesn't work.
-You've probably not properly installed git, or not installed it at all. Github has their own guide to installing git but we'll link it below.
+You've probably not properly installed git, or not installed it at all. Github has their own guide to installing git but we'll link it below.  
 [Installing git](https://github.com/git-guides/install-git)  
 
 ### I can't run the app, a lot of functions aren't valid functions
